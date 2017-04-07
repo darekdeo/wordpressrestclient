@@ -238,4 +238,6 @@ public class Post {
      * </p>
      */
     @JsonProperty("liveblog_likes") public Integer liveblogLikes;
+
+    @JsonProperty("_links") public Links links;
 }
