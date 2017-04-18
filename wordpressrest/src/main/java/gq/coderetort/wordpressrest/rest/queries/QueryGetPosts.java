@@ -9,7 +9,7 @@ public class QueryGetPosts extends Query {
     private Integer perPage = null;
     private String search = null;
     private String after = null;
-    private Integer author = null;
+    private List<Integer> author = null;
     private List<Integer> authorExclude = null;
     private String before = null;
     private List<Integer> exclude = null;
@@ -45,7 +45,7 @@ public class QueryGetPosts extends Query {
         return after;
     }
 
-    public Integer getAuthor() {
+    public List<Integer> getAuthor() {
         return author;
     }
 
@@ -135,7 +135,7 @@ public class QueryGetPosts extends Query {
         private Integer perPage = null;
         private String search = null;
         private String after = null;
-        private Integer author = null;
+        private List<Integer> author = null;
         private List<Integer> authorExclude = null;
         private String before = null;
         private List<Integer> exclude = null;
@@ -204,11 +204,11 @@ public class QueryGetPosts extends Query {
 
         /**
          * Limit result set to posts assigned to specific authors.
-         * @param authorId
+         * @param authorsId
          * @return
          */
-        public Builder author(Integer authorId) {
-            this.author = authorId;
+        public Builder author(List<Integer> authorsId) {
+            this.author = authorsId;
             return this;
         }
 

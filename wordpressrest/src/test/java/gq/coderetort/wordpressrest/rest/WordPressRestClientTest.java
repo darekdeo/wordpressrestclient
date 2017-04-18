@@ -136,15 +136,20 @@ public class WordPressRestClientTest {
 
     @Test
     public void getPostsByAuthor() throws Exception {
+        List<Integer> authors = new ArrayList<>();
+        authors.add(226);
+        authors.add(1);
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .author(226)
+                .author(authors)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
         assertNotNull(posts);
         assertFalse(posts.isEmpty());
         for (Post post : posts) {
-            assertTrue(post.author == 226);
+            assertNotNull(post);
+            assertNotNull(post.author);
+            assertTrue(authors.contains(post.author));
         }
     }
 
