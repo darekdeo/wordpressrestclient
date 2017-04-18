@@ -14,7 +14,9 @@ import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class WordPressRestClientTest {
 
@@ -243,20 +245,20 @@ public class WordPressRestClientTest {
         assertFalse(posts.isEmpty());
     }
 
-//    @Test
-//    public void getPostsBySlug() throws Exception {
-//        List<String> slugs = new ArrayList<>();
-//        slugs.add("test");
-////        slugs.add("asd");
-//
-//        QueryGetPosts query = new QueryGetPosts.Builder()
-//                .slug(slugs)
-//                .build();
-//        List<Post> posts = restClient.getPosts(query);
-//
-//        assertNotNull(posts);
-//        assertFalse(posts.isEmpty());
-//    }
+    @Test
+    public void getPostsBySlug() throws Exception {
+        List<String> slugs = new ArrayList<>();
+        slugs.add("testasdfasdfasdfasdfasdf");
+        slugs.add("4711your-post-title"); // todo fix retrieve list of slugs
+
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .slug(slugs)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+    }
 
     @Test
     public void getPost() throws Exception {

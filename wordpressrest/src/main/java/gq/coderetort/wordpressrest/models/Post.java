@@ -1,14 +1,15 @@
 package gq.coderetort.wordpressrest.models;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.utils.DateUtils;
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
+
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
 @JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, setterVisibility = NONE)
 public class Post {
