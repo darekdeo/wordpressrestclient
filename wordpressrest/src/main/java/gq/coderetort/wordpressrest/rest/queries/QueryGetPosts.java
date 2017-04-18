@@ -128,6 +128,20 @@ public class QueryGetPosts {
         this.sticky = builder.sticky;
     }
 
+    public String getExcludeString(List<Integer> exclude) {
+        String excluded = null;
+        if (exclude != null && !exclude.isEmpty()) {
+            for (Integer excludeId : exclude) {
+                if (excluded == null) {
+                    excluded = "-" + excludeId;
+                } else {
+                    excluded = excluded.concat(", -" + excludeId);
+                }
+            }
+        }
+        return excluded;
+    }
+
     public static class Builder {
 
         private String context = null;

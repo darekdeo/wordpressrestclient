@@ -53,6 +53,7 @@ public class WordPressRestClient {
         if (query == null) {
             call = apiService.getPosts();
         } else {
+
             call = apiService.getPosts(
                     query.getContext(),
                     query.getPage(),
@@ -60,9 +61,9 @@ public class WordPressRestClient {
                     query.getSearch(),
                     query.getAfter(),
                     query.getAuthor(),
-                    query.getAuthorExclude(),
+                    query.getExcludeString(query.getAuthorExclude()),
                     query.getBefore(),
-                    query.getExclude(),
+                    query.getExcludeString(query.getExclude()),
                     query.getInclude(),
                     query.getOffset(),
                     query.getOrder(),

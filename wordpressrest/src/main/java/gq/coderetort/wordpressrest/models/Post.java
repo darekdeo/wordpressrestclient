@@ -1,9 +1,16 @@
 package gq.coderetort.wordpressrest.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
 import java.util.List;
 
+import gq.coderetort.wordpressrest.utils.DateUtils;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
+
+@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, setterVisibility = NONE)
 public class Post {
 
     /**
@@ -12,7 +19,7 @@ public class Post {
      *     Context: view, edit, embed
      * </p>
      */
-    public String date;
+    @JsonProperty("date") public String date;
 
     /**
      * The date the object was published, as GMT. (ISO8601)
@@ -240,4 +247,52 @@ public class Post {
     @JsonProperty("liveblog_likes") public Integer liveblogLikes;
 
     @JsonProperty("_links") public Links links;
+
+    /**
+     * The date the object was published, in the site’s timezone.
+     * @return date or null
+     */
+    public Date getDate() {
+        return DateUtils.parseISO8601(date);
+    }
+
+    /**
+     * The date the object was published, in the site’s timezone.
+     * @param date
+     */
+    public void setDate(Date date) {
+        this.date = DateUtils.parseISO8601(date);
+    }
+
+    /**
+     * The date the object was published, as GMT.
+     * @return
+     */
+    public Date getDateGmt() {
+        return DateUtils.parseISO8601(dateGmt);
+    }
+
+    /**
+     * The date the object was published, as GMT.
+     * @param dateGmt
+     */
+    public void setDateGmt(Date dateGmt) {
+        this.dateGmt = DateUtils.parseISO8601(dateGmt);
+    }
+
+    /**
+     * The date the object was last modified, in the site’s timezone. <p>Read only</p>
+     * @return
+     */
+    public Date getModified() {
+        return DateUtils.parseISO8601(modified);
+    }
+
+    /**
+     * The date the object was last modified, as GMT. <p>Read only</p>
+     * @return
+     */
+    public Date getModifiedGmt() {
+        return DateUtils.parseISO8601(modifiedGmt);
+    }
 }

@@ -45,12 +45,12 @@ public interface WordPressService {
             @Query("per_page") Integer perPage,
             @Query("search") String search,
             @Query("after") String after,
-            @Query("author") Integer author, // todo test author query param
-            @Query("author_exclude") List<Integer> authorExclude, // todo test author_exclude query param
+            @Query("author") Integer author,
+            @Query("author_exclude") String authorExclude,
             @Query("before") String before,
-            @Query("exclude") List<Integer> exclude, // todo test exclude query param
-            @Query("include") List<Integer> include, // todo test include query param
-            @Query("offset") Integer offset, // todo test offset query param
+            @Query("exclude") String exclude,
+            @Query("include") List<Integer> include,
+            @Query("offset") Integer offset,
             @Query("order") String order,
             @Query("orderby") String orderBy,
             @Query("slug") List<String> slug, // todo test slug query param

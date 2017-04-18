@@ -13,6 +13,7 @@ public class Links {
     @JsonProperty("replies") List<Link> replies;
     @JsonProperty("version-history") List<Link> versionHistory;
     @JsonProperty("wp:attachment") List<Link> attachment;
+    @JsonProperty("wp:featuredmedia") public List<Link> featuredMedia;
     @JsonProperty("wp:term") List<Link> term;
     @JsonProperty("curies") List<Link> curies;
 }

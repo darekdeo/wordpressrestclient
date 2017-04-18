@@ -4,6 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Object {
 
-    @JsonProperty("rendered") String rendered;
-    @JsonProperty("protected") Boolean isProtected;
+    @JsonProperty("rendered") public String rendered;
+    @JsonProperty("protected") public Boolean isProtected;
 }
