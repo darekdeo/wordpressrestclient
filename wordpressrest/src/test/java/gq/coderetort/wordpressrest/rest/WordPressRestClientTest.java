@@ -419,6 +419,8 @@ public class WordPressRestClientTest {
                 .build();
         Post post = restClient.getPost(490, query);
 
-        // need password protected post/article
+        // todo need password protected post/article
     }
+
+    // todo test categories
 }

@@ -2,17 +2,17 @@ package gq.coderetort.wordpressrest.rest;
 
 import java.util.List;
 
+import gq.coderetort.wordpressrest.models.Category;
 import gq.coderetort.wordpressrest.models.Post;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryName;
 
 public interface WordPressService {
 
-    @GET("posts/")
+    @GET("posts")
     Call<List<Post>> getPosts();
 
     /**
@@ -144,4 +144,71 @@ public interface WordPressService {
     // todo add update post
     // todo add delete post
 
+    @GET("categories")
+    Call<List<Category>> getCategories();
+
+    /**
+     * @param context Scope under which the request is made; determines fields present in response.
+     *                Default: view; One of: view, embed, edit
+     * @param page Current page of the collection. Default: 1
+     * @param perPage Maximum number of items to be returned in result set. Default: 10
+     * @param search Limit results to those matching a string.
+     * @param exclude Ensure result set excludes specific IDs.
+     * @param include Limit result set to specific IDs.
+     * @param order Order sort attribute ascending or descending. Default: desc; One of: asc, desc
+     * @param orderBy Sort collection by term attribute. Default: date; One of: id, include, name, slug, term_group, description, count
+     * @param hideEmpty Whether to hide terms not assigned to any posts.
+     * @param parent Limit result set to terms assigned to a specific parent.
+     * @param post Limit result set to terms assigned to a specific post.
+     * @param slug Limit result set to terms with a specific slug.
+     * @return
+     */
+    @GET("categories")
+    Call<List<Category>> getCategories(
+            @Query("context") String context,
+            @Query("page") Integer page,
+            @Query("per_page") Integer perPage,
+            @Query("search") String search,
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
+            @Query("order") String order,
+            @Query("orderby") String orderBy,
+            @Query("hide_empty") Boolean hideEmpty,
+            @Query("parent") Integer parent,
+            @Query("post") Integer post,
+            @Query("slug") String slug);
+
+    @GET("categories")
+    Observable<List<Category>> getCategoriesObservable();
+
+    /**
+     * @param context Scope under which the request is made; determines fields present in response.
+     *                Default: view; One of: view, embed, edit
+     * @param page Current page of the collection. Default: 1
+     * @param perPage Maximum number of items to be returned in result set. Default: 10
+     * @param search Limit results to those matching a string.
+     * @param exclude Ensure result set excludes specific IDs.
+     * @param include Limit result set to specific IDs.
+     * @param order Order sort attribute ascending or descending. Default: desc; One of: asc, desc
+     * @param orderBy Sort collection by term attribute. Default: date; One of: id, include, name, slug, term_group, description, count
+     * @param hideEmpty Whether to hide terms not assigned to any posts.
+     * @param parent Limit result set to terms assigned to a specific parent.
+     * @param post Limit result set to terms assigned to a specific post.
+     * @param slug Limit result set to terms with a specific slug.
+     * @return
+     */
+    @GET("categories")
+    Observable<List<Category>> getCategoriesObservable(
+            @Query("context") String context,
+            @Query("page") Integer page,
+            @Query("per_page") Integer perPage,
+            @Query("search") String search,
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
+            @Query("order") String order,
+            @Query("orderby") String orderBy,
+            @Query("hide_empty") Boolean hideEmpty,
+            @Query("parent") Integer parent,
+            @Query("post") Integer post,
+            @Query("slug") String slug);
 }

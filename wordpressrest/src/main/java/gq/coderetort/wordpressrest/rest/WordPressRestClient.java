@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import gq.coderetort.wordpressrest.models.Category;
 import gq.coderetort.wordpressrest.models.Post;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
 import io.reactivex.Observable;
@@ -147,5 +149,64 @@ public class WordPressRestClient {
             call = apiService.getPostObservable(postId, query.getContext(), query.getPassword());
         }
         return call;
+    }
+
+    public List<Category> getCategories() {
+        return getCategories(null);
+    }
+
+    public List<Category> getCategories(@Nullable QueryGetCategories query) {
+        Call<List<Category>> call = getCategoriesCall(query);
+        try {
+            Response<List<Category>> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public Call<List<Category>> getCategoriesCall(@Nullable QueryGetCategories query) {
+        Call<List<Category>> call;
+        if (query == null) {
+            call = apiService.getCategories();
+        } else {
+            call = apiService.getCategories(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getHideEmpty(),
+                    query.getParent(),
+                    query.getPost(),
+                    query.getSlug());
+        }
+        return call;
+    }
+
+    public Observable<List<Category>> getCategoriesObservable(@Nullable QueryGetCategories query) {
+        Observable<List<Category>> observable;
+        if (query == null) {
+            observable = apiService.getCategoriesObservable();
+        } else {
+            observable = apiService.getCategoriesObservable(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getHideEmpty(),
+                    query.getParent(),
+                    query.getPost(),
+                    query.getSlug());
+        }
+        return observable;
     }
 }
