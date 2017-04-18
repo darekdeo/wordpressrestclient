@@ -140,7 +140,7 @@ public class Post {
     public Object content;
 
     /**
-     * The ID for the author of the object.
+     * The ID for the authors of the object.
      * <p>
      *     Context: view, edit, embed
      * </p>

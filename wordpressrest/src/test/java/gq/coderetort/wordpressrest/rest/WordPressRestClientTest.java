@@ -140,7 +140,7 @@ public class WordPressRestClientTest {
         authors.add(226);
         authors.add(1);
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .author(authors)
+                .authors(authors)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -285,7 +285,7 @@ public class WordPressRestClientTest {
         statuses.add("publish");
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .limitToStatus(statuses)
+                .limitToStatuses(statuses)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 

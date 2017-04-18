@@ -9,7 +9,7 @@ public class Links {
     @JsonProperty("self") List<Link> self;
     @JsonProperty("collection") List<Link> collection;
     @JsonProperty("about") List<Link> about;
-    @JsonProperty("author") List<Link> author;
+    @JsonProperty("authors") List<Link> author;
     @JsonProperty("replies") List<Link> replies;
     @JsonProperty("version-history") List<Link> versionHistory;
     @JsonProperty("wp:attachment") List<Link> attachment;

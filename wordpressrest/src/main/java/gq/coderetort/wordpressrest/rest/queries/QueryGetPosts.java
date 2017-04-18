@@ -207,7 +207,7 @@ public class QueryGetPosts extends Query {
          * @param authorsId
          * @return
          */
-        public Builder author(List<Integer> authorsId) {
+        public Builder authors(List<Integer> authorsId) {
             this.author = authorsId;
             return this;
         }
@@ -297,7 +297,7 @@ public class QueryGetPosts extends Query {
          * @param statuses Default: publish
          * @return
          */
-        public Builder limitToStatus(List<String> statuses) {
+        public Builder limitToStatuses(List<String> statuses) {
             this.status = statuses;
             return this;
         }
