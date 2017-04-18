@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class WordPressRestClient {
@@ -24,6 +25,7 @@ public class WordPressRestClient {
                 .baseUrl(baseUrl)
                 .client(new OkHttpClient())
                 .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         apiService = retrofit.create(WordPressService.class);
@@ -53,7 +55,6 @@ public class WordPressRestClient {
         if (query == null) {
             call = apiService.getPosts();
         } else {
-
             call = apiService.getPosts(
                     query.getContext(),
                     query.getPage(),
