@@ -7,6 +7,7 @@ import java.util.List;
 import gq.coderetort.wordpressrest.models.Category;
 import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
 import io.reactivex.Observable;
@@ -208,5 +209,40 @@ public class WordPressRestClient {
                     query.getSlug());
         }
         return observable;
+    }
+
+    public Category getCategory(int categoryId) {
+        return getCategory(categoryId, null);
+    }
+
+    public Category getCategory(int categoryId, @Nullable QueryGetCategory query) {
+        Call<Category> call = getCategoryCall(categoryId, query);
+        try {
+            Response<Category> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Call<Category> getCategoryCall(int categoryId, @Nullable QueryGetCategory query) {
+        Call<Category> call;
+        if (query == null) {
+            call = apiService.getCategory(categoryId);
+        } else {
+            call = apiService.getCategory(categoryId, query.getContext());
+        }
+        return call;
+    }
+
+    public Observable<Category> getCategoryObservable(int categoryId, @Nullable QueryGetCategory query) {
+        Observable<Category> call;
+        if (query == null) {
+            call = apiService.getCategoryObservable(categoryId);
+        } else {
+            call = apiService.getCategoryObservable(categoryId, query.getContext());
+        }
+        return call;
     }
 }

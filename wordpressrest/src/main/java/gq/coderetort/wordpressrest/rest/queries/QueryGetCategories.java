@@ -207,5 +207,9 @@ public class QueryGetCategories extends Query {
             this.slug = slug;
             return this;
         }
+
+        public QueryGetCategories build() {
+            return new QueryGetCategories(this);
+        }
     }
 }

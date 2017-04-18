@@ -211,4 +211,16 @@ public interface WordPressService {
             @Query("parent") Integer parent,
             @Query("post") Integer post,
             @Query("slug") String slug);
+
+    @GET("categories/{id}")
+    Call<Category> getCategory(@Path("id") Integer categoryId);
+
+    @GET("categories/{id}")
+    Call<Category> getCategory(@Path("id") Integer categoryId, @Query("context") String context);
+
+    @GET("categories/{id}")
+    Observable<Category> getCategoryObservable(@Path("id") Integer categoryId);
+
+    @GET("categories/{id}")
+    Observable<Category> getCategoryObservable(@Path("id") Integer categoryId, @Query("context") String context);
 }
