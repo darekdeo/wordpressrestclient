@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryName;
 
 public interface WordPressService {
 
@@ -45,21 +46,21 @@ public interface WordPressService {
             @Query("per_page") Integer perPage,
             @Query("search") String search,
             @Query("after") String after,
-            @Query("author") Integer author,
-            @Query("author_exclude") String authorExclude,
+            @Query("author[]") List<Integer> author,
+            @Query("author_exclude[]") List<Integer> authorExclude,
             @Query("before") String before,
-            @Query("exclude") String exclude,
-            @Query("include") List<Integer> include,
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
             @Query("offset") Integer offset,
             @Query("order") String order,
             @Query("orderby") String orderBy,
-            @Query("slug") List<String> slug, // todo test slug query param
-            @Query("status") List<String> status, // todo test status query param
-            @Query("categories") List<Integer> categories, // todo test categories query param
-            @Query("categories_exclude") List<Integer> categoriesExclude, // todo test categories_exclude query param
-            @Query("tags") List<Integer> tags, // todo test tags query param
-            @Query("tags_exclude") List<Integer> tagsExclude, // todo test tags_exclude query param
-            @Query("sticky") Boolean sticky); // todo test sticky query param
+            @Query("slug[]") List<String> slug,
+            @Query("status[]") List<String> status,
+            @Query("categories[]") List<Integer> categories,
+            @Query("categories_exclude[]") List<Integer> categoriesExclude,
+            @Query("tags[]") List<Integer> tags,
+            @Query("tags_exclude[]") List<Integer> tagsExclude,
+            @Query("sticky") Boolean sticky);
 
     @GET("posts")
     Observable<List<Post>> getPostsObservable();
@@ -95,21 +96,21 @@ public interface WordPressService {
             @Query("per_page") Integer perPage,
             @Query("search") String search,
             @Query("after") String after,
-            @Query("author") Integer author, // todo test author query param
-            @Query("author_exclude") List<Integer> authorExclude, // todo test author_exclude query param
+            @Query("author[]") List<Integer> author,
+            @Query("author_exclude[]") List<Integer> authorExclude,
             @Query("before") String before,
-            @Query("exclude") List<Integer> exclude, // todo test exclude query param
-            @Query("include") List<Integer> include, // todo test include query param
-            @Query("offset") Integer offset, // todo test offset query param
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
+            @Query("offset") Integer offset,
             @Query("order") String order,
             @Query("orderby") String orderBy,
-            @Query("slug") List<String> slug, // todo test slug query param
-            @Query("status") List<String> status, // todo test status query param
-            @Query("categories") List<Integer> categories, // todo test categories query param
-            @Query("categories_exclude") List<Integer> categoriesExclude, // todo test categories_exclude query param
-            @Query("tags") List<Integer> tags, // todo test tags query param
-            @Query("tags_exclude") List<Integer> tagsExclude, // todo test tags_exclude query param
-            @Query("sticky") Boolean sticky); // todo test sticky query param
+            @Query("slug[]") List<String> slug,
+            @Query("status[]") List<String> status,
+            @Query("categories[]") List<Integer> categories,
+            @Query("categories_exclude[]") List<Integer> categoriesExclude,
+            @Query("tags[]") List<Integer> tags,
+            @Query("tags_exclude[]") List<Integer> tagsExclude,
+            @Query("sticky") Boolean sticky);
 
     @GET("posts/{id}")
     Call<Post> getPost(@Path("id") Integer postId);

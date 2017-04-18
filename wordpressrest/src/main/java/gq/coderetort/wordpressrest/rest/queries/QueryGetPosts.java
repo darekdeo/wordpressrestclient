@@ -2,14 +2,14 @@ package gq.coderetort.wordpressrest.rest.queries;
 
 import java.util.List;
 
-public class QueryGetPosts {
+public class QueryGetPosts extends Query {
 
     private String context = null;
     private Integer page = null;
     private Integer perPage = null;
     private String search = null;
     private String after = null;
-    private Integer author = null;
+    private List<Integer> author = null;
     private List<Integer> authorExclude = null;
     private String before = null;
     private List<Integer> exclude = null;
@@ -45,7 +45,7 @@ public class QueryGetPosts {
         return after;
     }
 
-    public Integer getAuthor() {
+    public List<Integer> getAuthor() {
         return author;
     }
 
@@ -128,20 +128,6 @@ public class QueryGetPosts {
         this.sticky = builder.sticky;
     }
 
-    public String getExcludeString(List<Integer> exclude) {
-        String excluded = null;
-        if (exclude != null && !exclude.isEmpty()) {
-            for (Integer excludeId : exclude) {
-                if (excluded == null) {
-                    excluded = "-" + excludeId;
-                } else {
-                    excluded = excluded.concat(", -" + excludeId);
-                }
-            }
-        }
-        return excluded;
-    }
-
     public static class Builder {
 
         private String context = null;
@@ -149,7 +135,7 @@ public class QueryGetPosts {
         private Integer perPage = null;
         private String search = null;
         private String after = null;
-        private Integer author = null;
+        private List<Integer> author = null;
         private List<Integer> authorExclude = null;
         private String before = null;
         private List<Integer> exclude = null;
@@ -218,11 +204,11 @@ public class QueryGetPosts {
 
         /**
          * Limit result set to posts assigned to specific authors.
-         * @param authorId
+         * @param authorsId
          * @return
          */
-        public Builder author(Integer authorId) {
-            this.author = authorId;
+        public Builder authors(List<Integer> authorsId) {
+            this.author = authorsId;
             return this;
         }
 
@@ -311,7 +297,7 @@ public class QueryGetPosts {
          * @param statuses Default: publish
          * @return
          */
-        public Builder limitToStatus(List<String> statuses) {
+        public Builder limitToStatuses(List<String> statuses) {
             this.status = statuses;
             return this;
         }

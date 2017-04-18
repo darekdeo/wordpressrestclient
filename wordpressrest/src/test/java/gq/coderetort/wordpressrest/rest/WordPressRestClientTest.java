@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -13,6 +14,8 @@ import java.util.Locale;
 import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -24,7 +27,17 @@ public class WordPressRestClientTest {
 
     @Before
     public void setUp() {
-        restClient = new WordPressRestClient("http://demo.wp-api.org/wp-json/wp/v2/"); // put your address to test here
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                System.out.println(message);
+            }
+        });
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .build();
+        restClient = new WordPressRestClient(httpClient, "http://demo.wp-api.org/wp-json/wp/v2/"); // put your address to test here
     }
 
     @After
@@ -123,15 +136,20 @@ public class WordPressRestClientTest {
 
     @Test
     public void getPostsByAuthor() throws Exception {
+        List<Integer> authors = new ArrayList<>();
+        authors.add(226);
+        authors.add(1);
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .author(226)
+                .authors(authors)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
         assertNotNull(posts);
         assertFalse(posts.isEmpty());
         for (Post post : posts) {
-            assertTrue(post.author == 226);
+            assertNotNull(post);
+            assertNotNull(post.author);
+            assertTrue(authors.contains(post.author));
         }
     }
 
@@ -249,7 +267,7 @@ public class WordPressRestClientTest {
     public void getPostsBySlug() throws Exception {
         List<String> slugs = new ArrayList<>();
         slugs.add("testasdfasdfasdfasdfasdf");
-        slugs.add("4711your-post-title"); // todo fix retrieve list of slugs
+        slugs.add("4711your-post-title");
 
         QueryGetPosts query = new QueryGetPosts.Builder()
                 .slug(slugs)
@@ -258,6 +276,115 @@ public class WordPressRestClientTest {
 
         assertNotNull(posts);
         assertFalse(posts.isEmpty());
+        assertTrue(posts.size() == 2);
+    }
+
+    @Test
+    public void getPostsByStatus() throws Exception {
+        List<String> statuses = new ArrayList<>();
+        statuses.add("publish");
+
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .limitToStatuses(statuses)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+    }
+
+    @Test
+    public void getPostsByCategories() throws Exception {
+        List<Integer> categories = new ArrayList<>();
+        categories.add(1);
+        categories.add(7);
+
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .limitToCategories(categories)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+        for (Post post : posts) {
+            assertNotNull(post);
+            assertNotNull(post.categories);
+            assertFalse(Collections.disjoint(categories, post.categories));
+        }
+    }
+
+    @Test
+    public void getPostsByCategoriesExclude() throws Exception {
+        List<Integer> excludedCategories = new ArrayList<>();
+        excludedCategories.add(1);
+        excludedCategories.add(7);
+
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .excludeCategories(excludedCategories)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+        for (Post post : posts) {
+            assertNotNull(post);
+            assertNotNull(post.categories);
+            assertTrue(Collections.disjoint(excludedCategories, post.categories));
+        }
+    }
+
+    @Test
+    public void getPostsByTags() throws Exception {
+        List<Integer> tags = new ArrayList<>();
+        tags.add(2);
+        tags.add(3);
+
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .limitToTags(tags)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+        for (Post post : posts) {
+            assertNotNull(post);
+            assertNotNull(post.tags);
+            assertFalse(Collections.disjoint(tags, post.tags));
+        }
+    }
+
+    @Test
+    public void getPostsByTagsExclude() throws Exception {
+        List<Integer> excludedTags = new ArrayList<>();
+        excludedTags.add(2);
+        excludedTags.add(3);
+
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .excludeTags(excludedTags)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+        for (Post post : posts) {
+            assertNotNull(post);
+            assertNotNull(post.tags);
+            assertTrue(Collections.disjoint(excludedTags, post.tags));
+        }
+    }
+
+    @Test
+    public void getPostsBySticky() throws Exception {
+        QueryGetPosts query = new QueryGetPosts.Builder()
+                .onlySticky(false)
+                .build();
+        List<Post> posts = restClient.getPosts(query);
+
+        assertNotNull(posts);
+        assertFalse(posts.isEmpty());
+        for (Post post : posts) {
+            assertFalse(post.sticky);
+        }
     }
 
     @Test
