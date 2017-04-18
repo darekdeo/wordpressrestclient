@@ -401,4 +401,24 @@ public class WordPressRestClientTest {
 
         assertNotNull(post);
     }
+
+    @Test
+    public void getPostWithContext() throws Exception {
+        QueryGetPost query = new QueryGetPost.Builder()
+                .context("view")
+                .build();
+        Post post = restClient.getPost(490, query);
+
+        assertNotNull(post);
+    }
+
+    @Test
+    public void getPostWithPassword() throws Exception {
+        QueryGetPost query = new QueryGetPost.Builder()
+                .password("test_password")
+                .build();
+        Post post = restClient.getPost(490, query);
+
+        // need password protected post/article
+    }
 }
