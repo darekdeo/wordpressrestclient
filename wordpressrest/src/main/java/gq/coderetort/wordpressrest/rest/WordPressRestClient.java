@@ -21,9 +21,13 @@ public class WordPressRestClient {
     WordPressService apiService;
 
     public WordPressRestClient(String baseUrl) {
+        this(null, baseUrl);
+    }
+
+    public WordPressRestClient(OkHttpClient httpClient, String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(new OkHttpClient())
+                .client(httpClient != null ? httpClient : new OkHttpClient())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
