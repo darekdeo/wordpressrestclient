@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CategoryRestClientTest {
 
-    WordPressRestClient restClient;
+    private WordPressRestClient restClient;
 
     @Before
     public void setUp() {

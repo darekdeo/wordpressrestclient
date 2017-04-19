@@ -21,7 +21,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
  */
 public class RxWordPressRestClientTest {
 
-    WordPressRestClient restClient;
+    private WordPressRestClient restClient;
 
     @Before
     public void setUp() {

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 })
 public class WordPressRestClientTestSuite {
 
-    WordPressRestClient restClient;
+    private WordPressRestClient restClient;
 
     @Before
     public void setUp() {
