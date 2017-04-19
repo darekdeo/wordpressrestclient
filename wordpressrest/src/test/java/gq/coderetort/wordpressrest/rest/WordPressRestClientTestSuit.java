@@ -17,9 +17,10 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         PostRestClientTest.class,
-        CategoryRestClientTest.class
+        CategoryRestClientTest.class,
+        RxWordPressRestClientTest.class
 })
-public class WordPressRestClientTest {
+public class WordPressRestClientTestSuit {
 
     WordPressRestClient restClient;
 
@@ -60,5 +61,4 @@ public class WordPressRestClientTest {
             System.out.println(failure.toString());
         }
     }
-    // todo test categories
 }
