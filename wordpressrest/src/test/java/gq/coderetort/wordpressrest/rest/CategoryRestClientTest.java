@@ -3,23 +3,17 @@ package gq.coderetort.wordpressrest.rest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.RunWith;
-import org.junit.runner.notification.Failure;
-import org.junit.runners.Suite;
 
+import java.util.List;
+
+import gq.coderetort.wordpressrest.models.Category;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-        PostRestClientTest.class,
-        CategoryRestClientTest.class
-})
-public class WordPressRestClientTest {
+public class CategoryRestClientTest {
 
     WordPressRestClient restClient;
 
@@ -43,22 +37,10 @@ public class WordPressRestClientTest {
     }
 
     @Test
-    public void getWordPressService() throws Exception {
-        WordPressService restService = restClient.getWordPressService();
+    public void getCategories() throws Exception {
+        List<Category> categories = restClient.getCategories();
 
-        assertNotNull(restService);
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
     }
-
-//    @Test
-//    public void postRestClientTestSuite() throws Exception {
-//        runTests(PostRestClientTest.class);
-//    }
-
-    private static void runTests(Class test){
-        Result result = JUnitCore.runClasses(test);
-        for (Failure failure : result.getFailures()){
-            System.out.println(failure.toString());
-        }
-    }
-    // todo test categories
 }

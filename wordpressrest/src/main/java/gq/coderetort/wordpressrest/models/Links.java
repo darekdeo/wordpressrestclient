@@ -16,4 +16,6 @@ public class Links {
     @JsonProperty("wp:featuredmedia") public List<Link> featuredMedia;
     @JsonProperty("wp:term") List<Link> term;
     @JsonProperty("curies") List<Link> curies;
+    @JsonProperty("up") List<Link> up;
+    @JsonProperty("wp:post_type") List<Link> postType;
 }
