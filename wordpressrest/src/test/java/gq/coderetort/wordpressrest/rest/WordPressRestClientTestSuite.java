@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
         CategoryRestClientTest.class,
         RxWordPressRestClientTest.class
 })
-public class WordPressRestClientTestSuit {
+public class WordPressRestClientTestSuite {
 
     WordPressRestClient restClient;
 

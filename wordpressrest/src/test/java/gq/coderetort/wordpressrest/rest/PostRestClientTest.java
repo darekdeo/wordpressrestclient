@@ -102,10 +102,7 @@ public class PostRestClientTest {
             assertNotNull(post.content);
             assertNotNull(post.content.rendered);
             assertNotNull(post.slug);
-            assertTrue(
-                    post.content.rendered.contains(searchString) ||
-                            post.slug.contains(searchString)
-            );
+            assertTrue(post.content.rendered.contains(searchString) || post.slug.contains(searchString));
         }
     }
 
