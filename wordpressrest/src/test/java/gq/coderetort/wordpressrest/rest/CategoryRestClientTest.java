@@ -12,9 +12,7 @@ import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CategoryRestClientTest {
 
@@ -109,12 +107,12 @@ public class CategoryRestClientTest {
         QueryGetCategories query = new QueryGetCategories.Builder()
                 .exclude(excludedCategories)
                 .build();
-        List<Category> posts = restClient.getCategories(query);
+        List<Category> categories = restClient.getCategories(query);
 
-        assertNotNull(posts);
-        assertFalse(posts.isEmpty());
-        for (Category post : posts) {
-            assertFalse(excludedCategories.contains(post.id));
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
+        for (Category category : categories) {
+            assertFalse(excludedCategories.contains(category.id));
         }
     }
 
@@ -127,12 +125,12 @@ public class CategoryRestClientTest {
         QueryGetCategories query = new QueryGetCategories.Builder()
                 .includeOnly(includedCategories)
                 .build();
-        List<Category> posts = restClient.getCategories(query);
+        List<Category> categories = restClient.getCategories(query);
 
-        assertNotNull(posts);
-        assertFalse(posts.isEmpty());
-        for (Category post : posts) {
-            assertTrue(includedCategories.contains(post.id));
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
+        for (Category category : categories) {
+            assertTrue(includedCategories.contains(category.id));
         }
     }
 
@@ -142,28 +140,60 @@ public class CategoryRestClientTest {
                 .orderBy("id")
                 .order("asc")
                 .build();
-        List<Category> posts = restClient.getCategories(query);
+        List<Category> categories = restClient.getCategories(query);
 
-        assertNotNull(posts);
-        assertFalse(posts.isEmpty());
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
 
-        Category post = posts.get(0);
-        assertNotNull(post);
-        assertTrue(post.id == 1);
+        Category category = categories.get(0);
+        assertNotNull(category);
+        assertTrue(category.id == 1);
     }
 
     @Test
     public void getCategoriesByHideEmpty() throws Exception {
-        // todo fill test
+        QueryGetCategories query = new QueryGetCategories.Builder()
+                .hideEmpty(true)
+                .build();
+        List<Category> categories = restClient.getCategories(query);
+
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
     }
 
     @Test
     public void getCategoriesByParent() throws Exception {
-        // todo fill test
+        QueryGetCategories query = new QueryGetCategories.Builder()
+                .limitToParent(6)
+                .build();
+        List<Category> categories = restClient.getCategories(query);
+
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
+        assertTrue(categories.size() == 1);
     }
 
     @Test
     public void getCategoriesByPost() throws Exception {
-        // todo fill test
+        QueryGetCategories query = new QueryGetCategories.Builder()
+                .limitToPost(470)
+                .build();
+        List<Category> categories = restClient.getCategories(query);
+
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
+    }
+
+    @Test
+    public void getCategoriesBySlug() throws Exception {
+        String slug = "apple-event";
+        QueryGetCategories query = new QueryGetCategories.Builder()
+                .limitToSlug(slug)
+                .build();
+        List<Category> categories = restClient.getCategories(query);
+
+        assertNotNull(categories);
+        assertFalse(categories.isEmpty());
+        assertEquals(slug, categories.get(0).slug);
     }
 }
