@@ -13,7 +13,7 @@ public class QueryGetTags extends QueryGetTerms {
         offset = builder.offset;
     }
 
-    public static class Builder extends QueryGetTerms.Builder<Builder> {
+    public static class Builder extends QueryGetTerms.Builder<Builder, QueryGetTags> {
 
         private Integer offset;
 
@@ -27,6 +27,12 @@ public class QueryGetTags extends QueryGetTerms {
             return this;
         }
 
+        @Override
+        protected QueryGetItems.Builder<QueryGetTerms.Builder<Builder, QueryGetTags>, QueryGetTags> getThis() {
+            return this;
+        }
+
+        @Override
         public QueryGetTags build() {
             return new QueryGetTags(this);
         }

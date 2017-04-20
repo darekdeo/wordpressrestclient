@@ -13,7 +13,7 @@ public class QueryGetCategories extends QueryGetTerms {
         parent = builder.parent;
     }
 
-    public static class Builder extends QueryGetTerms.Builder<Builder> {
+    public static class Builder extends QueryGetTerms.Builder<Builder, QueryGetCategories> {
 
         private Integer parent = null;
 
@@ -27,6 +27,11 @@ public class QueryGetCategories extends QueryGetTerms {
 
         public QueryGetCategories build() {
             return new QueryGetCategories(this);
+        }
+
+        @Override
+        protected Builder getThis() {
+            return this;
         }
     }
 }
