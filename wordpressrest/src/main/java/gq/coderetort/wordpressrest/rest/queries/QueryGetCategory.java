@@ -1,6 +1,6 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
-public class QueryGetCategory {
+public class QueryGetCategory extends Query {
 
     private String context;
 

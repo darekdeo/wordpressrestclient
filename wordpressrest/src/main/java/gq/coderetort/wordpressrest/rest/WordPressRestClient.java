@@ -6,10 +6,12 @@ import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Category;
 import gq.coderetort.wordpressrest.models.Post;
+import gq.coderetort.wordpressrest.models.Tag;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetTags;
 import io.reactivex.Observable;
 import io.reactivex.annotations.Nullable;
 import okhttp3.OkHttpClient;
@@ -21,7 +23,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class WordPressRestClient {
 
-    WordPressService apiService;
+    private WordPressService apiService;
 
     public WordPressRestClient(String baseUrl) {
         this(null, baseUrl);
@@ -245,4 +247,33 @@ public class WordPressRestClient {
         }
         return call;
     }
+
+    public List<Tag> getTags() {
+        return getTags(null);
+    }
+
+    public List<Tag> getTags(QueryGetTags query) {
+        Call<List<Tag>> call = getTagsCall(query);
+        try {
+            Response<List<Tag>> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public Call<List<Tag>> getTagsCall(QueryGetTags query) {
+        Call<List<Tag>> call;
+        if (query == null) {
+            call = apiService.getTags();
+        } else {
+            call = apiService.getTags(
+                    // todo fill query
+            );
+        }
+        return call;
+    }
+
+    // todo add tags query observable
 }

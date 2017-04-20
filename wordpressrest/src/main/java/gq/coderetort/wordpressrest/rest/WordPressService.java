@@ -145,6 +145,8 @@ public interface WordPressService {
     // todo add update post
     // todo add delete post
 
+    // todo add post revisions crud
+
     @GET("categories")
     Call<List<Category>> getCategories();
 

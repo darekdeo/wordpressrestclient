@@ -167,7 +167,7 @@ public class QueryGetPosts extends Query {
          * @param page Default: 1
          * @return
          */
-        public Builder page(Integer page) {
+        public Builder page(int page) {
             this.page = page;
             return this;
         }
@@ -177,7 +177,7 @@ public class QueryGetPosts extends Query {
          * @param perPage Default: 10
          * @return
          */
-        public Builder itemsPerPage(Integer perPage) {
+        public Builder itemsPerPage(int perPage) {
             this.perPage = perPage;
             return this;
         }
@@ -257,7 +257,7 @@ public class QueryGetPosts extends Query {
          * @param itemsOffset
          * @return
          */
-        public Builder offset(Integer itemsOffset) {
+        public Builder offset(int itemsOffset) {
             this.offset = itemsOffset;
             return this;
         }
