@@ -16,6 +16,12 @@ public class QueryGetCategory {
 
         private String context;
 
+        /**
+         * Scope under which the request is made; determines fields present in response.
+         * <p>Default: view</p>
+         * @param context Default: view; One of: view, embed, edit
+         * @return
+         */
         public Builder context(String context) {
             this.context = context;
             return this;

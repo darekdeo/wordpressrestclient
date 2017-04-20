@@ -9,6 +9,7 @@ import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Category;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -195,5 +196,22 @@ public class CategoryRestClientTest {
         assertNotNull(categories);
         assertFalse(categories.isEmpty());
         assertEquals(slug, categories.get(0).slug);
+    }
+
+    @Test
+    public void getCategory() throws Exception {
+        Category category = restClient.getCategory(6);
+
+        assertNotNull(category);
+    }
+
+    @Test
+    public void getCategoryWithQuery() throws Exception {
+        QueryGetCategory query = new QueryGetCategory.Builder()
+                .context("view")
+                .build();
+
+        Category category = restClient.getCategory(6, query);
+        assertNotNull(category);
     }
 }
