@@ -4,6 +4,7 @@ import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Category;
 import gq.coderetort.wordpressrest.models.Post;
+import gq.coderetort.wordpressrest.models.Tag;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -223,4 +224,46 @@ public interface WordPressService {
 
     @GET("categories/{id}")
     Observable<Category> getCategoryObservable(@Path("id") Integer categoryId, @Query("context") String context);
+
+    @GET("tags")
+    Call<List<Tag>> getTags();
+
+    @GET("tags")
+    Call<List<Tag>> getTags(
+            @Query("context") String context,
+            @Query("page") Integer page,
+            @Query("per_page") Integer perPage,
+            @Query("search") String search,
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
+            @Query("offset") Integer offset,
+            @Query("order") String order,
+            @Query("orderby") String orderBy,
+            @Query("hide_empty") Boolean hideEmpty,
+            @Query("post") Integer post,
+            @Query("slug") String slug);
+
+    @GET("tags")
+    Observable<List<Tag>> getTagsObservable(
+            @Query("context") String context,
+            @Query("page") Integer page,
+            @Query("per_page") Integer perPage,
+            @Query("search") String search,
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
+            @Query("offset") Integer offset,
+            @Query("order") String order,
+            @Query("orderby") String orderBy,
+            @Query("hide_empty") Boolean hideEmpty,
+            @Query("post") Integer post,
+            @Query("slug") String slug);
+
+    @GET("tags/{id}")
+    Call<Tag> getTag(@Path("id") Integer tagId);
+
+    @GET("tags/{id}")
+    Call<Tag> getTag(@Path("id") Integer tagId, @Query("context") String context);
+
+    @GET("tags/{id}")
+    Observable<Tag> getTagObservable(@Path("id") Integer tagId, @Query("context") String context);
 }
