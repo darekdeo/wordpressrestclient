@@ -51,7 +51,8 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
         slug = builder.slug;
     }
 
-    public abstract static class Builder<T extends Builder<T, S>, S> extends QueryGetItems.Builder<Builder<T, S>, S> {
+    public abstract static class Builder
+            <T extends Builder<T, S>, S> extends QueryGetItems.Builder<T, S> {
 
         private String after = null;
         private List<Integer> author = null;
@@ -68,7 +69,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T after(String after) {
             this.after = after;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -78,7 +79,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T authors(List<Integer> authorsId) {
             this.author = authorsId;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -88,7 +89,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T excludeAuthors(List<Integer> authorsIds) {
             this.authorExclude = authorsIds;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -98,7 +99,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T before(String before) {
             this.before = before;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -108,7 +109,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T offset(int itemsOffset) {
             this.offset = itemsOffset;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -118,7 +119,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T limitToStatuses(List<String> statuses) {
             this.status = statuses;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -128,7 +129,7 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          */
         public T slug(List<String> slugs) {
             this.slug = slugs;
-            return (T) this;
+            return getThis();
         }
     }
 }

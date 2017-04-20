@@ -98,7 +98,7 @@ public class QueryGetPosts extends QueryGetEntryObjects {
         }
 
         @Override
-        protected QueryGetItems.Builder<QueryGetEntryObjects.Builder<Builder, QueryGetPosts>, QueryGetPosts> getThis() {
+        protected Builder getThis() {
             return this;
         }
 

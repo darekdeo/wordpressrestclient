@@ -29,7 +29,7 @@ public class QueryGetPost extends QueryGetItem {
 
         @Override
         protected Builder getThis() {
-            return null;
+            return this;
         }
 
         @Override

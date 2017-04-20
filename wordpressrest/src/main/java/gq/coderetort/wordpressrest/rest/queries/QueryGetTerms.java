@@ -25,7 +25,8 @@ public abstract class QueryGetTerms extends QueryGetItems {
         slug = builder.slug;
     }
 
-    public abstract static class Builder<T extends Builder<T, S>, S> extends QueryGetItems.Builder<Builder<T, S>, S> {
+    public abstract static class Builder
+            <T extends Builder<T, S>, S> extends QueryGetItems.Builder<T, S> {
 
         private Boolean hideEmpty = null;
         private Integer post = null;
@@ -36,7 +37,7 @@ public abstract class QueryGetTerms extends QueryGetItems {
          */
         public T hideEmpty(boolean hideEmpty) {
             this.hideEmpty = hideEmpty;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -44,7 +45,7 @@ public abstract class QueryGetTerms extends QueryGetItems {
          */
         public T limitToPost(int post) {
             this.post = post;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -52,7 +53,7 @@ public abstract class QueryGetTerms extends QueryGetItems {
          */
         public T limitToSlug(String slug) {
             this.slug = slug;
-            return (T) this;
+            return getThis();
         }
     }
 }

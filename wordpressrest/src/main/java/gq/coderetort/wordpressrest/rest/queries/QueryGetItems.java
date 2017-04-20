@@ -4,7 +4,6 @@ import java.util.List;
 
 public abstract class QueryGetItems extends QueryGetItem {
 
-    private String context = null;
     private Integer page = null;
     private Integer perPage = null;
     private String search = null;
@@ -12,10 +11,6 @@ public abstract class QueryGetItems extends QueryGetItem {
     private List<Integer> include = null;
     private String order = null;
     private String orderBy = null;
-
-    public String getContext() {
-        return context;
-    }
 
     public Integer getPage() {
         return page;
@@ -47,7 +42,6 @@ public abstract class QueryGetItems extends QueryGetItem {
 
     public QueryGetItems(Builder builder) {
         super(builder);
-        context = builder.context;
         page = builder.page;
         perPage = builder.perPage;
         search = builder.search;
@@ -57,9 +51,9 @@ public abstract class QueryGetItems extends QueryGetItem {
         orderBy = builder.orderBy;
     }
 
-    public abstract static class Builder<T extends Builder<T, S>, S> extends QueryGetItem.Builder<Builder<T, S>, S> {
+    public abstract static class Builder
+            <T extends Builder<T, S>, S> extends QueryGetItem.Builder<T, S> {
 
-        private String context = null;
         private Integer page = null;
         private Integer perPage = null;
         private String search = null;
@@ -69,24 +63,13 @@ public abstract class QueryGetItems extends QueryGetItem {
         private String orderBy = null;
 
         /**
-         * Scope under which the request is made; determines fields present in response.
-         * <p>Default: view</p>
-         * @param context Default: view; One of: view, embed, edit
-         * @return
-         */
-        public T context(String context) {
-            this.context = context;
-            return (T) this;
-        }
-
-        /**
          * Current page of the collection.
          * @param page Default: 1
          * @return
          */
         public T page(int page) {
             this.page = page;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -96,7 +79,7 @@ public abstract class QueryGetItems extends QueryGetItem {
          */
         public T itemsPerPage(int perPage) {
             this.perPage = perPage;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -106,7 +89,7 @@ public abstract class QueryGetItems extends QueryGetItem {
          */
         public T searchFor(String search) {
             this.search = search;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -116,7 +99,7 @@ public abstract class QueryGetItems extends QueryGetItem {
          */
         public T exclude(List<Integer> itemsIds) {
             this.exclude = itemsIds;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -126,7 +109,7 @@ public abstract class QueryGetItems extends QueryGetItem {
          */
         public T includeOnly(List<Integer> itemsIds) {
             this.include = itemsIds;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -136,7 +119,7 @@ public abstract class QueryGetItems extends QueryGetItem {
          */
         public T order(String order) {
             this.order = order;
-            return (T) this;
+            return getThis();
         }
 
         /**
@@ -146,7 +129,7 @@ public abstract class QueryGetItems extends QueryGetItem {
          */
         public T orderBy(String orderBy) {
             this.orderBy = orderBy;
-            return (T) this;
+            return getThis();
         }
     }
 }

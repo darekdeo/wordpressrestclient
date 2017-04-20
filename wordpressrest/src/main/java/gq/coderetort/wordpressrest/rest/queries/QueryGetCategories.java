@@ -25,13 +25,13 @@ public class QueryGetCategories extends QueryGetTerms {
             return this;
         }
 
-        public QueryGetCategories build() {
-            return new QueryGetCategories(this);
-        }
-
         @Override
         protected Builder getThis() {
             return this;
+        }
+
+        public QueryGetCategories build() {
+            return new QueryGetCategories(this);
         }
     }
 }

@@ -12,7 +12,8 @@ public abstract class QueryGetItem extends Query {
         context = builder.context;
     }
 
-    public abstract static class Builder<T extends Builder<T, S>, S> {
+    public abstract static class Builder
+            <T extends Builder<T, S>, S> {
 
         private String context;
 
@@ -24,7 +25,7 @@ public abstract class QueryGetItem extends Query {
          */
         public T context(String context) {
             this.context = context;
-            return (T) this;
+            return getThis();
         }
 
         protected abstract T getThis();

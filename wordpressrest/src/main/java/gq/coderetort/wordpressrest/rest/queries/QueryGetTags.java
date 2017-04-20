@@ -28,7 +28,7 @@ public class QueryGetTags extends QueryGetTerms {
         }
 
         @Override
-        protected QueryGetItems.Builder<QueryGetTerms.Builder<Builder, QueryGetTags>, QueryGetTags> getThis() {
+        protected Builder getThis() {
             return this;
         }
 
