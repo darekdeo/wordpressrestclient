@@ -246,6 +246,9 @@ public interface WordPressService {
             @Query("slug") String slug);
 
     @GET("tags")
+    Observable<List<Tag>> getTagsObservable();
+
+    @GET("tags")
     Observable<List<Tag>> getTagsObservable(
             @Query("context") String context,
             @Query("page") Integer page,
@@ -265,6 +268,9 @@ public interface WordPressService {
 
     @GET("tags/{id}")
     Call<Tag> getTag(@Path("id") Integer tagId, @Query("context") String context);
+
+    @GET("tags/{id}")
+    Observable<Tag> getTagObservable(@Path("id") Integer tagId);
 
     @GET("tags/{id}")
     Observable<Tag> getTagObservable(@Path("id") Integer tagId, @Query("context") String context);

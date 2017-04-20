@@ -11,6 +11,7 @@ import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetTag;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetTags;
 import io.reactivex.Observable;
 import io.reactivex.annotations.Nullable;
@@ -269,11 +270,76 @@ public class WordPressRestClient {
             call = apiService.getTags();
         } else {
             call = apiService.getTags(
-                    // todo fill query
-            );
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getOffset(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getHideEmpty(),
+                    query.getPost(),
+                    query.getSlug());
         }
         return call;
     }
 
-    // todo add tags query observable
+    public Observable<List<Tag>> getTagsObservable(QueryGetTags query) {
+        Observable<List<Tag>> call;
+        if (query == null) {
+            call = apiService.getTagsObservable();
+        } else {
+            call = apiService.getTagsObservable(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getOffset(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getHideEmpty(),
+                    query.getPost(),
+                    query.getSlug());
+        }
+        return call;
+    }
+
+    public Tag getTag(int tagId) {
+        return getTag(tagId, null);
+    }
+
+    public Tag getTag(int tagId, QueryGetTag query) {
+        Call<Tag> call = getTagCall(tagId, query);
+        try {
+            Response<Tag> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Call<Tag> getTagCall(int tagId, QueryGetTag query) {
+        Call<Tag> call;
+        if (query == null) {
+            call = apiService.getTag(tagId);
+        } else {
+            call = apiService.getTag(tagId, query.getContext());
+        }
+        return call;
+    }
+
+    public Observable<Tag> getTagObservable(int tagId, QueryGetTag query) {
+        Observable<Tag> call;
+        if (query == null) {
+            call = apiService.getTagObservable(tagId);
+        } else {
+            call = apiService.getTagObservable(tagId, query.getContext());
+        }
+        return call;
+    }
 }
