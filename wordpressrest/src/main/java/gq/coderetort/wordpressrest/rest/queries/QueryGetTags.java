@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
+import gq.coderetort.wordpressrest.rest.queries.base.QueryGetTerms;
+
 public class QueryGetTags extends QueryGetTerms {
 
     private Integer offset;

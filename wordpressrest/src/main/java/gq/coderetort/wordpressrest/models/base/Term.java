@@ -1,8 +1,11 @@
-package gq.coderetort.wordpressrest.models;
+package gq.coderetort.wordpressrest.models.base;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+
+import gq.coderetort.wordpressrest.models.Links;
+import gq.coderetort.wordpressrest.models.Object;
 
 public abstract class Term {
 

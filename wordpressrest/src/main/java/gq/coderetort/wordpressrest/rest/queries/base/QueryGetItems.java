@@ -1,6 +1,8 @@
-package gq.coderetort.wordpressrest.rest.queries;
+package gq.coderetort.wordpressrest.rest.queries.base;
 
 import java.util.List;
+
+import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItem;
 
 public abstract class QueryGetItems extends QueryGetItem {
 

@@ -1,4 +1,4 @@
-package gq.coderetort.wordpressrest.rest.queries;
+package gq.coderetort.wordpressrest.rest.queries.base;
 
 import java.util.ArrayList;
 import java.util.List;

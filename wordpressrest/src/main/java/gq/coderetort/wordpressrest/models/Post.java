@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+import gq.coderetort.wordpressrest.models.base.EntryObject;
+
 public class Post extends EntryObject {
 
     /**

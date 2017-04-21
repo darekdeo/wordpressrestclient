@@ -2,6 +2,8 @@ package gq.coderetort.wordpressrest.rest.queries;
 
 import java.util.List;
 
+import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObjects;
+
 public class QueryGetPosts extends QueryGetEntryObjects {
 
     private List<Integer> categories = null;

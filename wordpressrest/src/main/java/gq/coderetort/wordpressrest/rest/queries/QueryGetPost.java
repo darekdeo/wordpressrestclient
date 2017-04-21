@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
+import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItem;
+
 public class QueryGetPost extends QueryGetItem {
 
     private String password = null;

@@ -2,6 +2,8 @@ package gq.coderetort.wordpressrest.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import gq.coderetort.wordpressrest.models.base.EntryObject;
+
 public class Page extends EntryObject {
 
     /**

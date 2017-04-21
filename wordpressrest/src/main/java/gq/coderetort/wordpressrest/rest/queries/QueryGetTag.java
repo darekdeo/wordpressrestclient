@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
+import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItem;
+
 public class QueryGetTag extends QueryGetItem {
 
     public QueryGetTag(Builder builder) {
