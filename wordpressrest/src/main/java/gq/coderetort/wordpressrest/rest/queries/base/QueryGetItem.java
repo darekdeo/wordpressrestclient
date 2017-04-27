@@ -1,7 +1,5 @@
 package gq.coderetort.wordpressrest.rest.queries.base;
 
-import gq.coderetort.wordpressrest.rest.queries.base.Query;
-
 public abstract class QueryGetItem extends Query {
 
     private String context;

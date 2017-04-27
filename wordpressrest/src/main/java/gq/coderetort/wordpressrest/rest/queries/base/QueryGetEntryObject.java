@@ -23,9 +23,9 @@ public abstract class QueryGetEntryObject extends QueryGetItem {
          * @param password
          * @return
          */
-        public Builder password(String password) {
+        public T password(String password) {
             this.password = password;
-            return this;
+            return getThis();
         }
     }
 }
