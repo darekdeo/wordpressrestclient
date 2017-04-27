@@ -1,33 +1,15 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
-import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItem;
+import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObject;
 
-public class QueryGetPost extends QueryGetItem {
-
-    private String password = null;
-
-    public String getPassword() {
-        return password;
-    }
+public class QueryGetPost extends QueryGetEntryObject {
 
     public QueryGetPost(Builder builder) {
         super(builder);
-        this.password = builder.password;
+
     }
 
-    public static class Builder extends QueryGetItem.Builder<Builder, QueryGetPost> {
-
-        private String password = null;
-
-        /**
-         * The password for the post if it is password protected.
-         * @param password
-         * @return
-         */
-        public Builder password(String password) {
-            this.password = password;
-            return this;
-        }
+    public static class Builder extends QueryGetEntryObject.Builder<Builder, QueryGetPost> {
 
         @Override
         protected Builder getThis() {
