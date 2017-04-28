@@ -11,6 +11,22 @@ public class QueryGetPages extends QueryGetEntryObjects {
     private List<Integer> parentExclude;
     private List<String> filter; // todo how to do
 
+    public Integer getMenuOrder() {
+        return menuOrder;
+    }
+
+    public List<Integer> getParent() {
+        return parent;
+    }
+
+    public List<Integer> getParentExclude() {
+        return parentExclude;
+    }
+
+    public List<String> getFilter() {
+        return filter;
+    }
+
     public QueryGetPages(Builder builder) {
         super(builder);
         menuOrder = builder.menuOrder;

@@ -3,26 +3,18 @@ package gq.coderetort.wordpressrest.rest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.RunWith;
-import org.junit.runner.notification.Failure;
-import org.junit.runners.Suite;
 
+import java.util.List;
+
+import gq.coderetort.wordpressrest.models.Page;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-        PostRestClientTest.class,
-        CategoryRestClientTest.class,
-        TagRestClientTest.class,
-        PageRestClientTest.class,
-        RxWordPressRestClientTest.class
-})
-public class WordPressRestClientTestSuite {
+public class PageRestClientTest {
 
     private WordPressRestClient restClient;
 
@@ -46,21 +38,19 @@ public class WordPressRestClientTestSuite {
     }
 
     @Test
-    public void getWordPressService() throws Exception {
-        WordPressService restService = restClient.getWordPressService();
+    public void getPages() throws Exception {
+        List<Page> pages = restClient.getPages();
 
-        assertNotNull(restService);
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
     }
 
-//    @Test
-//    public void postRestClientTestSuite() throws Exception {
-//        runTests(PostRestClientTest.class);
-//    }
+    @Test
+    public void getPagesByQuery() throws Exception {
+        QueryGetPages query = new QueryGetPages.Builder().build();
+        List<Page> pages = restClient.getPages(query);
 
-    private static void runTests(Class test){
-        Result result = JUnitCore.runClasses(test);
-        for (Failure failure : result.getFailures()){
-            System.out.println(failure.toString());
-        }
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
     }
 }

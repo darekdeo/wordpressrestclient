@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Category;
+import gq.coderetort.wordpressrest.models.Page;
 import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.models.Tag;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetTag;
@@ -91,11 +93,11 @@ public class WordPressRestClient {
     }
 
     public Observable<List<Post>> getPostsObservable(@Nullable QueryGetPosts query) {
-        Observable<List<Post>> call;
+        Observable<List<Post>> observable;
         if (query == null) {
-            call = apiService.getPostsObservable();
+            observable = apiService.getPostsObservable();
         } else {
-            call = apiService.getPostsObservable(
+            observable = apiService.getPostsObservable(
                     query.getContext(),
                     query.getPage(),
                     query.getPerPage(),
@@ -117,7 +119,7 @@ public class WordPressRestClient {
                     query.getTagsExclude(),
                     query.getSticky());
         }
-        return call;
+        return observable;
     }
 
     public Post getPost(int postId) {
@@ -146,13 +148,13 @@ public class WordPressRestClient {
     }
 
     public Observable<Post> getPostObservable(int postId, @Nullable QueryGetPost query) {
-        Observable<Post> call;
+        Observable<Post> observable;
         if (query == null) {
-            call = apiService.getPostObservable(postId);
+            observable = apiService.getPostObservable(postId);
         } else {
-            call = apiService.getPostObservable(postId, query.getContext(), query.getPassword());
+            observable = apiService.getPostObservable(postId, query.getContext(), query.getPassword());
         }
-        return call;
+        return observable;
     }
 
     public List<Category> getCategories() {
@@ -240,13 +242,13 @@ public class WordPressRestClient {
     }
 
     public Observable<Category> getCategoryObservable(int categoryId, @Nullable QueryGetCategory query) {
-        Observable<Category> call;
+        Observable<Category> observable;
         if (query == null) {
-            call = apiService.getCategoryObservable(categoryId);
+            observable = apiService.getCategoryObservable(categoryId);
         } else {
-            call = apiService.getCategoryObservable(categoryId, query.getContext());
+            observable = apiService.getCategoryObservable(categoryId, query.getContext());
         }
-        return call;
+        return observable;
     }
 
     public List<Tag> getTags() {
@@ -287,11 +289,11 @@ public class WordPressRestClient {
     }
 
     public Observable<List<Tag>> getTagsObservable(QueryGetTags query) {
-        Observable<List<Tag>> call;
+        Observable<List<Tag>> observable;
         if (query == null) {
-            call = apiService.getTagsObservable();
+            observable = apiService.getTagsObservable();
         } else {
-            call = apiService.getTagsObservable(
+            observable = apiService.getTagsObservable(
                     query.getContext(),
                     query.getPage(),
                     query.getPerPage(),
@@ -305,7 +307,7 @@ public class WordPressRestClient {
                     query.getPost(),
                     query.getSlug());
         }
-        return call;
+        return observable;
     }
 
     public Tag getTag(int tagId) {
@@ -334,12 +336,85 @@ public class WordPressRestClient {
     }
 
     public Observable<Tag> getTagObservable(int tagId, QueryGetTag query) {
-        Observable<Tag> call;
+        Observable<Tag> observable;
         if (query == null) {
-            call = apiService.getTagObservable(tagId);
+            observable = apiService.getTagObservable(tagId);
         } else {
-            call = apiService.getTagObservable(tagId, query.getContext());
+            observable = apiService.getTagObservable(tagId, query.getContext());
+        }
+        return observable;
+    }
+
+    public List<Page> getPages() {
+        return getPages(null);
+    }
+
+    public List<Page> getPages(QueryGetPages query) {
+        Call<List<Page>> call = getPagesCall(query);
+        try {
+            Response<List<Page>> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public Call<List<Page>> getPagesCall(QueryGetPages query) {
+        Call<List<Page>> call;
+        if (query == null) {
+            call = apiService.getPages();
+        } else {
+            call = apiService.getPages(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getAfter(),
+                    query.getAuthor(),
+                    query.getAuthorExclude(),
+                    query.getBefore(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getMenuOrder(),
+                    query.getOffset(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getParent(),
+                    query.getParentExclude(),
+                    query.getSlug(),
+                    query.getStatus(),
+                    query.getFilter());
         }
         return call;
+    }
+
+    public Observable<List<Page>> getPagesObservable(QueryGetPages query) {
+        Observable<List<Page>> observable;
+        if (query == null) {
+            observable = apiService.getPagesObservable();
+        } else {
+            observable = apiService.getPagesObservable(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getAfter(),
+                    query.getAuthor(),
+                    query.getAuthorExclude(),
+                    query.getBefore(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getMenuOrder(),
+                    query.getOffset(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getParent(),
+                    query.getParentExclude(),
+                    query.getSlug(),
+                    query.getStatus(),
+                    query.getFilter());
+        }
+        return observable;
     }
 }
