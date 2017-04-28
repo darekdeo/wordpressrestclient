@@ -110,7 +110,7 @@ public class PostRestClientTest {
     public void getPostsByAfterDate() throws Exception {
         String dateAfter = "2017-03-01T12:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault());
-        Date afterDate = sdf.parse("2017-03-01T12:00:00");
+        Date afterDate = sdf.parse(dateAfter);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
                 .after(dateAfter)
@@ -164,7 +164,7 @@ public class PostRestClientTest {
     public void getPostsByBeforeDate() throws Exception {
         String dateBefore = "2017-03-01T12:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault());
-        Date beforeDate = sdf.parse("2017-03-01T12:00:00");
+        Date beforeDate = sdf.parse(dateBefore);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
                 .before(dateBefore)

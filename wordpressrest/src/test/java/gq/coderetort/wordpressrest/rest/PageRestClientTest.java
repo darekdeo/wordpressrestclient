@@ -4,7 +4,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import gq.coderetort.wordpressrest.models.Page;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
@@ -13,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class PageRestClientTest {
 
@@ -52,5 +57,255 @@ public class PageRestClientTest {
 
         assertNotNull(pages);
         assertFalse(pages.isEmpty());
+    }
+
+    @Test
+    public void getPagesByContext() throws Exception {
+        QueryGetPages query = new QueryGetPages.Builder()
+                .context("view") // default one
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+    }
+
+    @Test // should return certain amount of posts of specified page
+    public void getPagesByPage() throws Exception {
+        int itemsPerPage = 4;
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .page(2)
+                .itemsPerPage(itemsPerPage)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        assertTrue(pages.size() == itemsPerPage);
+    }
+
+    @Test
+    public void getPagesBySearch() throws Exception {
+        String searchString = "sample";
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .searchFor(searchString)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertNotNull(page.content);
+            assertNotNull(page.content.rendered);
+            assertNotNull(page.slug);
+            assertTrue(page.content.rendered.contains(searchString) || page.slug.contains(searchString));
+        }
+    }
+
+    @Test
+    public void getPagesByAfterDate() throws Exception {
+        String dateAfter = "2016-03-01T12:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault());
+        Date afterDate = sdf.parse(dateAfter);
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .after(dateAfter)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page: pages) {
+            assertTrue(page.getDate().after(afterDate));
+        }
+    }
+
+    @Test
+    public void getPagesByAuthor() throws Exception {
+        List<Integer> authors = new ArrayList<>();
+        authors.add(226);
+        authors.add(1);
+        QueryGetPages query = new QueryGetPages.Builder()
+                .authors(authors)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertNotNull(page);
+            assertNotNull(page.author);
+            assertTrue(authors.contains(page.author));
+        }
+    }
+
+    @Test
+    public void getPagesByAuthorExclude() throws Exception {
+        List<Integer> excludedAuthors = new ArrayList<>();
+        excludedAuthors.add(226);
+        excludedAuthors.add(135);
+        QueryGetPages query = new QueryGetPages.Builder()
+                .excludeAuthors(excludedAuthors)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertFalse(excludedAuthors.contains(page.author));
+        }
+    }
+
+    @Test
+    public void getPagesByBeforeDate() throws Exception {
+        String dateBefore = "2017-03-01T12:00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault());
+        Date beforeDate = sdf.parse(dateBefore);
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .before(dateBefore)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertTrue(page.getDate().before(beforeDate));
+        }
+    }
+
+    @Test
+    public void getPagesByExclude() throws Exception {
+        List<Integer> excludedPages = new ArrayList<>();
+        excludedPages.add(286);
+        excludedPages.add(347);
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .exclude(excludedPages)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertFalse(excludedPages.contains(page.id));
+        }
+    }
+
+    @Test
+    public void getPagesByInclude() throws Exception {
+        List<Integer> includedPages = new ArrayList<>();
+        includedPages.add(286);
+        includedPages.add(347);
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .includeOnly(includedPages)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertTrue(includedPages.contains(page.id));
+        }
+    }
+
+    @Test
+    public void getPagesByMenuOrder() throws Exception {
+        int menuOrderToSearch = 0;
+        QueryGetPages query = new QueryGetPages.Builder()
+                .menuOrder(menuOrderToSearch)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertTrue(page.menuOrder == menuOrderToSearch);
+        }
+    }
+
+    @Test
+    public void getPagesByOffset() throws Exception {
+        QueryGetPages query = new QueryGetPages.Builder()
+                .offset(3)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+    }
+
+    @Test
+    public void getPagesByOrder() throws Exception {
+        QueryGetPages query = new QueryGetPages.Builder()
+                .order("asc")
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+
+        Page page = pages.get(0);
+        assertNotNull(page);
+        assertTrue(page.id == 2);
+    }
+
+    @Test
+    public void getPagesByOrderBy() throws Exception {
+        QueryGetPages query = new QueryGetPages.Builder()
+                .orderBy("slug")
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+    }
+
+    @Test
+    public void getPagesByParentExclude() throws Exception {
+        // todo fill the test
+    }
+
+    @Test
+    public void getPagesByParentInclude() throws Exception {
+        // todo fill the test
+    }
+
+    @Test
+    public void getPagesBySlug() throws Exception {
+        List<String> slugs = new ArrayList<>();
+        slugs.add("adipisci-praesentium-ut-qui-est-qui");
+        slugs.add("et-totam-quia-quam-enim-id-voluptatem");
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .slug(slugs)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        assertTrue(pages.size() == 2);
+    }
+
+    @Test
+    public void getPagesByStatus() throws Exception {
+        List<String> statuses = new ArrayList<>();
+        statuses.add("publish");
+
+        QueryGetPages query = new QueryGetPages.Builder()
+                .limitToStatuses(statuses)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+    }
+
+    @Test
+    public void getPagesByFilter() throws Exception {
+        // todo fill the test
     }
 }
