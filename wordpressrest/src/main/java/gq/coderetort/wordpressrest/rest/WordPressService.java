@@ -33,7 +33,7 @@ public interface WordPressService {
      * @param order Order sort attribute ascending or descending. Default: desc; One of: asc, desc
      * @param orderBy Sort collection by object attribute. Default: date; One of: date, relevance, id, include, title, slug
      * @param slug Limit result set to posts with one or more specific slugs.
-     * @param status Limit result set to posts assigned one or more statuses. Default: publish
+     * @param status Limit result set to posts assigned one or more status. Default: publish
      * @param categories Limit result set to all items that have the specified term assigned in the categories taxonomy.
      * @param categoriesExclude Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
      * @param tags Limit result set to all items that have the specified term assigned in the tags taxonomy.
@@ -83,7 +83,7 @@ public interface WordPressService {
      * @param order Order sort attribute ascending or descending. Default: desc; One of: asc, desc
      * @param orderBy Sort collection by object attribute. Default: date; One of: date, relevance, id, include, title, slug
      * @param slug Limit result set to posts with one or more specific slugs.
-     * @param status Limit result set to posts assigned one or more statuses. Default: publish
+     * @param status Limit result set to posts assigned one or more status. Default: publish
      * @param categories Limit result set to all items that have the specified term assigned in the categories taxonomy.
      * @param categoriesExclude Limit result set to all items except those that have the specified term assigned in the categories taxonomy.
      * @param tags Limit result set to all items that have the specified term assigned in the tags taxonomy.
