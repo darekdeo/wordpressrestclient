@@ -266,12 +266,36 @@ public class PageRestClientTest {
 
     @Test
     public void getPagesByParentExclude() throws Exception {
-        // todo fill the test
+        List<Integer> parentsToExclude = new ArrayList<>();
+        parentsToExclude.add(1);
+        QueryGetPages query = new QueryGetPages.Builder()
+                .excludeParent(parentsToExclude)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertNotNull(page.parent);
+            assertFalse(parentsToExclude.contains(page.parent));
+        }
     }
 
     @Test
     public void getPagesByParentInclude() throws Exception {
-        // todo fill the test
+        List<Integer> parentsToInclude = new ArrayList<>();
+        parentsToInclude.add(0);
+        QueryGetPages query = new QueryGetPages.Builder()
+                .limitToParent(parentsToInclude)
+                .build();
+        List<Page> pages = restClient.getPages(query);
+
+        assertNotNull(pages);
+        assertFalse(pages.isEmpty());
+        for (Page page : pages) {
+            assertNotNull(page.parent);
+            assertTrue(parentsToInclude.contains(page.parent));
+        }
     }
 
     @Test
