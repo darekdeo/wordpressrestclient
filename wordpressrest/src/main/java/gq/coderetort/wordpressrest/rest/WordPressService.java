@@ -3,6 +3,7 @@ package gq.coderetort.wordpressrest.rest;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Category;
+import gq.coderetort.wordpressrest.models.Comment;
 import gq.coderetort.wordpressrest.models.Page;
 import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.models.Tag;
@@ -481,4 +482,20 @@ public interface WordPressService {
     // todo add create page
     // todo add update page
     // todo add delete page
+
+    @GET("comments")
+    Call<List<Comment>> getComments();
+    // todo add comments crud
+
+    // todo add taxonomies crud
+
+    // todo add media crud
+
+    // todo add users crud
+
+    // todo add post types crud
+
+    // todo add post statuses crud
+
+    // todo add settings crud
 }
