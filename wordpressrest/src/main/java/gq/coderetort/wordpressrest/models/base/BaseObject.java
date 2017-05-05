@@ -6,7 +6,7 @@ import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Links;
 
-public class BaseObject {
+public abstract class BaseObject {
 
     /**
      * Unique identifier for the object.

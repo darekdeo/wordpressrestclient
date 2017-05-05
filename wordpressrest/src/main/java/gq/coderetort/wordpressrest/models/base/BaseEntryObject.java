@@ -1,6 +1,5 @@
 package gq.coderetort.wordpressrest.models.base;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -8,11 +7,7 @@ import java.util.Date;
 import gq.coderetort.wordpressrest.models.Object;
 import gq.coderetort.wordpressrest.utils.DateUtils;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
-
-@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, setterVisibility = NONE)
-public class BaseEntryObject extends BaseObject {
+public abstract class BaseEntryObject extends BaseObject {
 
     /**
      * The ID for the author of the object, if author was a user.
