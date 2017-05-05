@@ -2,13 +2,13 @@ package gq.coderetort.wordpressrest.rest.queries;
 
 import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObject;
 
-public class QueryGetPost extends QueryGetEntryObject {
+public class QueryGetPage extends QueryGetEntryObject {
 
-    public QueryGetPost(Builder builder) {
+    public QueryGetPage(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends QueryGetEntryObject.Builder<Builder, QueryGetPost> {
+    public static class Builder extends QueryGetEntryObject.Builder<Builder, QueryGetPage> {
 
         @Override
         protected Builder getThis() {
@@ -16,8 +16,8 @@ public class QueryGetPost extends QueryGetEntryObject {
         }
 
         @Override
-        public QueryGetPost build() {
-            return new QueryGetPost(this);
+        public QueryGetPage build() {
+            return new QueryGetPage(this);
         }
     }
 }

@@ -246,6 +246,10 @@ public interface WordPressService {
     @GET("categories/{id}")
     Observable<Category> getCategoryObservable(@Path("id") Integer categoryId, @Query("context") String context);
 
+    // todo add create category
+    // todo add update category
+    // todo add delete category
+
     @GET("tags")
     Call<List<Tag>> getTags();
 
@@ -344,6 +348,10 @@ public interface WordPressService {
     @GET("tags/{id}")
     Observable<Tag> getTagObservable(@Path("id") Integer tagId, @Query("context") String context);
 
+    // todo add create tag
+    // todo add update tag
+    // todo add delete tag
+
     @GET("pages")
     Call<List<Page>> getPages();
 
@@ -441,4 +449,36 @@ public interface WordPressService {
             @Query("status[]") List<String> status,
             @Query("filter[]") List<String> query
     );
+
+    @GET("pages/{id}")
+    Call<Page> getPage(@Path("id") Integer pageId);
+
+    /**
+     * @param pageId Id of a page.
+     * @param context Scope under which the request is made; determines fields present in response. Default: view; One of: view, embed, edit.
+     * @param password The password for the post if it is password protected.
+     * @return
+     */
+    @GET("pages/{id}")
+    Call<Page> getPage(@Path("id") Integer pageId,
+                       @Query("context") String context,
+                       @Query("password") String password);
+
+    @GET("pages/{id}")
+    Observable<Page> getPageObservable(@Path("id") Integer pageId);
+
+    /**
+     * @param pageId Id of a page.
+     * @param context Scope under which the request is made; determines fields present in response. Default: view; One of: view, embed, edit.
+     * @param password The password for the post if it is password protected.
+     * @return
+     */
+    @GET("pages/{id}")
+    Observable<Page> getPageObservable(@Path("id") Integer pageId,
+                                       @Query("context") String context,
+                                       @Query("password") String password);
+
+    // todo add create page
+    // todo add update page
+    // todo add delete page
 }

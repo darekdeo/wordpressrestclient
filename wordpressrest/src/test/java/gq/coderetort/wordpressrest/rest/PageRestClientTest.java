@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import gq.coderetort.wordpressrest.models.Page;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetPage;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -331,5 +332,25 @@ public class PageRestClientTest {
     @Test
     public void getPagesByFilter() throws Exception {
         // todo fill the test
+    }
+
+    @Test
+    public void getPageWithContext() throws Exception {
+        QueryGetPage query = new QueryGetPage.Builder()
+                .context("view")
+                .build();
+        Page page = restClient.getPage(265, query);
+
+        assertNotNull(page);
+    }
+
+    @Test
+    public void getPageWithPassword() throws Exception {
+        QueryGetPage query = new QueryGetPage.Builder()
+                .password("test_password")
+                .build();
+        Page page = restClient.getPage(265, query);
+
+        // todo need password protected post/article
     }
 }

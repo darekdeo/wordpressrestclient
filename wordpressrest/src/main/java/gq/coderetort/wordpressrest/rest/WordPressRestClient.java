@@ -10,6 +10,7 @@ import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.models.Tag;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetPage;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPosts;
@@ -414,6 +415,41 @@ public class WordPressRestClient {
                     query.getSlug(),
                     query.getStatus(),
                     query.getFilter());
+        }
+        return observable;
+    }
+
+    public Page getPage(int pageId) {
+        return getPage(pageId, null);
+    }
+
+    public Page getPage(int pageId, QueryGetPage query) {
+        Call<Page> call = getPageCall(pageId, query);
+        try {
+            Response<Page> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Call<Page> getPageCall(int pageId, QueryGetPage query) {
+        Call<Page> call;
+        if (query == null) {
+            call = apiService.getPage(pageId);
+        } else {
+            call = apiService.getPage(pageId, query.getContext(), query.getPassword());
+        }
+        return call;
+    }
+
+    public Observable<Page> getPageObservable(int pageId, QueryGetPage query) {
+        Observable<Page> observable;
+        if (query == null) {
+            observable = apiService.getPageObservable(pageId);
+        } else {
+            observable = apiService.getPageObservable(pageId, query.getContext(), query.getPassword());
         }
         return observable;
     }

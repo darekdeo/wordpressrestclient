@@ -6,7 +6,7 @@ import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObjects;
 
 public class QueryGetPages extends QueryGetEntryObjects {
 
-    private Integer menuOrder; // todo test if works
+    private Integer menuOrder;
     private List<Integer> parent;
     private List<Integer> parentExclude;
     private List<String> filter; // todo how to do
@@ -37,7 +37,7 @@ public class QueryGetPages extends QueryGetEntryObjects {
 
     public static class Builder extends QueryGetEntryObjects.Builder<Builder, QueryGetPages> {
 
-        private Integer menuOrder; // todo test if works
+        private Integer menuOrder;
         private List<Integer> parent;
         private List<Integer> parentExclude;
         private List<String> filter; // todo how to do
