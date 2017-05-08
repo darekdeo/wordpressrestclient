@@ -275,7 +275,7 @@ public class PostRestClientTest {
         statuses.add("publish");
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .limitToStatuses(statuses)
+                .limitToStatus(statuses)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 

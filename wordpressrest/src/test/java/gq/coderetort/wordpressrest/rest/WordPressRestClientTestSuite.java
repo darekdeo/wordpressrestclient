@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
         CategoryRestClientTest.class,
         TagRestClientTest.class,
         PageRestClientTest.class,
+        CommentRestClientTest.class,
         RxWordPressRestClientTest.class
 })
 public class WordPressRestClientTestSuite {

@@ -517,8 +517,8 @@ public interface WordPressService {
             @Query("per_page") Integer perPage,
             @Query("search") String search,
             @Query("after") String after,
-            @Query("author[]") List<Integer> author,
-            @Query("author_exclude[]") List<Integer> authorExclude,
+            @Query("author") List<Integer> author,
+            @Query("author_exclude") List<Integer> authorExclude,
             @Query("author_email") String authorEmail,
             @Query("before") String before,
             @Query("exclude[]") List<Integer> exclude,
@@ -530,7 +530,7 @@ public interface WordPressService {
             @Query("parent[]") List<Integer> parent,
             @Query("parent_exclude[]") List<Integer> parentExclude,
             @Query("post[]") List<Integer> post,
-            @Query("status[]") List<String> status,
+            @Query("status") List<String> status,
             @Query("type[]") List<String> type);
     // todo add comments crud
 

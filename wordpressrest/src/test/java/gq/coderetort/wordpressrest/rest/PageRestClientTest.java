@@ -321,7 +321,7 @@ public class PageRestClientTest {
         statuses.add("publish");
 
         QueryGetPages query = new QueryGetPages.Builder()
-                .limitToStatuses(statuses)
+                .limitToStatus(statuses)
                 .build();
         List<Page> pages = restClient.getPages(query);
 

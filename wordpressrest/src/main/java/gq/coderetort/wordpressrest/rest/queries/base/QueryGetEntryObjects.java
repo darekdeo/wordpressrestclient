@@ -107,11 +107,11 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
 
         /**
          * Limit result set to posts assigned one or more statuses.
-         * @param statuses Default: publish (or approve if object type is comment)
+         * @param status Default: publish (or approve if object type is comment)
          * @return
          */
-        public T limitToStatuses(List<String> statuses) {
-            this.status = statuses;
+        public T limitToStatus(List<String> status) {
+            this.status = status;
             return getThis();
         }
     }

@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObjects;
@@ -75,29 +77,29 @@ public class QueryGetComments extends QueryGetEntryObjects {
         /**
          * Limit result set to resources of specific parent ids.
          */
-        public Builder limitToParent(List<Integer> parent) {
-            this.parent = parent;
+        public Builder limitToParent(Integer... parent) {
+            this.parent = new ArrayList<>(Arrays.asList(parent));
             return this;
         }
 
-        public Builder excludeParent(List<Integer> parentExclude) {
-            this.parentExclude = parentExclude;
+        public Builder excludeParent(Integer... parentExclude) {
+            this.parentExclude = new ArrayList<>(Arrays.asList(parentExclude));
             return this;
         }
 
         /**
          * Limit result set to resources assigned to specific post ids.
          */
-        public Builder post(List<Integer> post) {
-            this.post = post;
+        public Builder post(Integer... post) {
+            this.post = new ArrayList<>(Arrays.asList(post));
             return this;
         }
 
         /**
          * Limit result set to comments assigned a specific type. Requires authorization. Default: comment
          */
-        public Builder type(List<String> type) {
-            this.type = type;
+        public Builder type(String... type) {
+            this.type = new ArrayList<>(Arrays.asList(type));
             return this;
         }
 
