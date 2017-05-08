@@ -11,6 +11,7 @@ import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.models.Tag;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetComment;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetComments;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPage;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
@@ -497,6 +498,61 @@ public class WordPressRestClient {
                     query.getPost(),
                     query.getStatus(),
                     query.getType());
+        }
+        return call;
+    }
+
+    public Observable<List<Comment>> getCommentsObservable(QueryGetComments query) {
+        Observable<List<Comment>> call;
+        if (query == null) {
+            call = apiService.getCommentsObservable();
+        } else {
+            call = apiService.getCommentsObservable(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getAfter(),
+                    query.getAuthor(),
+                    query.getAuthorExclude(),
+                    query.getAuthorEmail(),
+                    query.getBefore(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getKarma(),
+                    query.getOffset(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getParent(),
+                    query.getParentExclude(),
+                    query.getPost(),
+                    query.getStatus(),
+                    query.getType());
+        }
+        return call;
+    }
+
+    public Comment getComment(int commentId) {
+        return getComment(commentId, null);
+    }
+
+    public Comment getComment(int commentId, QueryGetComment query) {
+        Call<Comment> call = getCommentCall(commentId, query);
+        try {
+            Response<Comment> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Call<Comment> getCommentCall(int commentId, QueryGetComment query) {
+        Call<Comment> call;
+        if (query == null) {
+            call = apiService.getComment(commentId);
+        } else {
+            call = apiService.getComment(commentId, query.getContext());
         }
         return call;
     }

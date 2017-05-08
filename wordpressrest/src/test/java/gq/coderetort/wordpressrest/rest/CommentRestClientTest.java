@@ -328,4 +328,11 @@ public class CommentRestClientTest {
 
         // not permitted without auth
     }
+
+    @Test
+    public void getComment() throws Exception {
+        Comment comment = restClient.getComment(2);
+
+        // requires auth
+    }
 }
