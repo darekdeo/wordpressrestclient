@@ -13,7 +13,10 @@ import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class CategoryRestClientTest {
 
@@ -106,7 +109,7 @@ public class CategoryRestClientTest {
         excludedCategories.add(6);
 
         QueryGetCategories query = new QueryGetCategories.Builder()
-                .exclude(excludedCategories)
+                .exclude(5, 6)
                 .build();
         List<Category> categories = restClient.getCategories(query);
 
@@ -124,7 +127,7 @@ public class CategoryRestClientTest {
         includedCategories.add(6);
 
         QueryGetCategories query = new QueryGetCategories.Builder()
-                .includeOnly(includedCategories)
+                .includeOnly(5, 6)
                 .build();
         List<Category> categories = restClient.getCategories(query);
 

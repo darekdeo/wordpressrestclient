@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries.base;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class QueryGetEntryObjects extends QueryGetItems {
@@ -110,8 +112,8 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
          * @param status Default: publish (or approve if object type is comment)
          * @return
          */
-        public T limitToStatus(List<String> status) {
-            this.status = status;
+        public T limitToStatus(String... status) {
+            this.status = new ArrayList<>(Arrays.asList(status));
             return getThis();
         }
     }

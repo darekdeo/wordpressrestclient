@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObjects;
@@ -54,23 +56,23 @@ public class QueryGetPages extends QueryGetEntryObjects {
             return this;
         }
 
-        public Builder limitToParent(List<Integer> parent) {
-            this.parent = parent;
+        public Builder limitToParent(Integer... parent) {
+            this.parent = new ArrayList<>(Arrays.asList(parent));
             return this;
         }
 
-        public Builder excludeParent(List<Integer> parentExclude) {
-            this.parentExclude = parentExclude;
+        public Builder excludeParent(Integer... parentExclude) {
+            this.parentExclude = new ArrayList<>(Arrays.asList(parentExclude));
             return this;
         }
 
-        public Builder slug(List<String> slug) {
-            this.slug = slug;
+        public Builder slug(String... slug) {
+            this.slug = new ArrayList<>(Arrays.asList(slug));
             return this;
         }
 
-        public Builder filter(List<String> filter) {
-            this.filter = filter;
+        public Builder filter(String... filter) {
+            this.filter = new ArrayList<>(Arrays.asList(filter));
             return this;
         }
 

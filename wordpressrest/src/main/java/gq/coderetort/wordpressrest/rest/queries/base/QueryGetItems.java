@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries.base;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class QueryGetItems extends QueryGetItem {
@@ -97,8 +99,8 @@ public abstract class QueryGetItems extends QueryGetItem {
          * @param itemsIds
          * @return
          */
-        public T exclude(List<Integer> itemsIds) {
-            this.exclude = itemsIds;
+        public T exclude(Integer... itemsIds) {
+            this.exclude = new ArrayList<>(Arrays.asList(itemsIds));
             return getThis();
         }
 
@@ -107,8 +109,8 @@ public abstract class QueryGetItems extends QueryGetItem {
          * @param itemsIds
          * @return
          */
-        public T includeOnly(List<Integer> itemsIds) {
-            this.include = itemsIds;
+        public T includeOnly(Integer... itemsIds) {
+            this.include = new ArrayList<>(Arrays.asList(itemsIds));
             return getThis();
         }
 

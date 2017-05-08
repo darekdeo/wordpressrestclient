@@ -1,5 +1,7 @@
 package gq.coderetort.wordpressrest.rest.queries;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.rest.queries.base.QueryGetEntryObjects;
@@ -61,8 +63,8 @@ public class QueryGetPosts extends QueryGetEntryObjects {
          * @param categories
          * @return
          */
-        public Builder limitToCategories(List<Integer> categories) {
-            this.categories = categories;
+        public Builder limitToCategories(Integer... categories) {
+            this.categories = new ArrayList<>(Arrays.asList(categories));
             return this;
         }
 
@@ -71,8 +73,8 @@ public class QueryGetPosts extends QueryGetEntryObjects {
          * @param categories
          * @return
          */
-        public Builder excludeCategories(List<Integer> categories) {
-            this.categoriesExclude = categories;
+        public Builder excludeCategories(Integer... categories) {
+            this.categoriesExclude = new ArrayList<>(Arrays.asList(categories));
             return this;
         }
 
@@ -81,8 +83,8 @@ public class QueryGetPosts extends QueryGetEntryObjects {
          * @param tags
          * @return
          */
-        public Builder limitToTags(List<Integer> tags) {
-            this.tags = tags;
+        public Builder limitToTags(Integer... tags) {
+            this.tags = new ArrayList<>(Arrays.asList(tags));
             return this;
         }
 
@@ -91,8 +93,8 @@ public class QueryGetPosts extends QueryGetEntryObjects {
          * @param tags
          * @return
          */
-        public Builder excludeTags(List<Integer> tags) {
-            this.tagsExclude = tags;
+        public Builder excludeTags(Integer... tags) {
+            this.tagsExclude = new ArrayList<>(Arrays.asList(tags));
             return this;
         }
 
@@ -111,8 +113,8 @@ public class QueryGetPosts extends QueryGetEntryObjects {
          * @param slugs
          * @return
          */
-        public Builder slug(List<String> slugs) {
-            this.slug = slugs;
+        public Builder slug(String... slugs) {
+            this.slug = new ArrayList<>(Arrays.asList(slugs));
             return getThis();
         }
 

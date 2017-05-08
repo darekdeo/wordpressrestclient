@@ -178,35 +178,29 @@ public class CommentRestClientTest {
 
     @Test
     public void getPagesByExclude() throws Exception {
-        List<Integer> excludedComments = new ArrayList<>();
-        excludedComments.add(1);
-
         QueryGetComments query = new QueryGetComments.Builder()
-                .exclude(excludedComments)
+                .exclude(1)
                 .build();
         List<Comment> comments = restClient.getComments(query);
 
         assertNotNull(comments);
         assertFalse(comments.isEmpty());
         for (Comment comment : comments) {
-            assertFalse(excludedComments.contains(comment.id));
+            assertFalse(comment.id == 1);
         }
     }
 
     @Test
     public void getCommentsByInclude() throws Exception {
-        List<Integer> includedComments = new ArrayList<>();
-        includedComments.add(1);
-
         QueryGetComments query = new QueryGetComments.Builder()
-                .includeOnly(includedComments)
+                .includeOnly(1)
                 .build();
         List<Comment> comments = restClient.getComments(query);
 
         assertNotNull(comments);
         assertFalse(comments.isEmpty());
         for (Comment comment : comments) {
-            assertTrue(includedComments.contains(comment.id));
+            assertTrue(comment.id == 1);
         }
     }
 
@@ -307,11 +301,8 @@ public class CommentRestClientTest {
 
     @Test
     public void getCommentsByStatus() throws Exception {
-        List<String> statuses = new ArrayList<>();
-        statuses.add("approve");
-
         QueryGetComments query = new QueryGetComments.Builder()
-                .limitToStatus(statuses)
+                .limitToStatus("approve")
                 .build();
         List<Comment> comments = restClient.getComments(query);
 

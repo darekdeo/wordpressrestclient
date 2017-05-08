@@ -99,7 +99,7 @@ public class TagRestClientTest {
         excludedTags.add(2);
 
         QueryGetTags query = new QueryGetTags.Builder()
-                .exclude(excludedTags)
+                .exclude(2)
                 .build();
         List<Tag> tags = restClient.getTags(query);
 
@@ -116,7 +116,7 @@ public class TagRestClientTest {
         includedTags.add(2);
 
         QueryGetTags query = new QueryGetTags.Builder()
-                .includeOnly(includedTags)
+                .includeOnly(2)
                 .build();
         List<Tag> tags = restClient.getTags(query);
 

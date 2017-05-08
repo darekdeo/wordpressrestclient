@@ -1,7 +1,5 @@
 package gq.coderetort.wordpressrest.rest.queries.base;
 
-import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItems;
-
 public abstract class QueryGetTerms extends QueryGetItems {
 
     private Boolean hideEmpty = null;

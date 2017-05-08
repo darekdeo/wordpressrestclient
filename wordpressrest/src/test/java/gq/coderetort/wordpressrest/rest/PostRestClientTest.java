@@ -186,7 +186,7 @@ public class PostRestClientTest {
         excludedPosts.add(503);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .exclude(excludedPosts)
+                .exclude(470, 490, 503)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -205,7 +205,7 @@ public class PostRestClientTest {
         includedPosts.add(503);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .includeOnly(includedPosts)
+                .includeOnly(470, 490, 503)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -260,7 +260,7 @@ public class PostRestClientTest {
         slugs.add("4711your-post-title");
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .slug(slugs)
+                .slug("testasdfasdfasdfasdfasdf", "4711your-post-title")
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -275,7 +275,7 @@ public class PostRestClientTest {
         statuses.add("publish");
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .limitToStatus(statuses)
+                .limitToStatus("publish")
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -290,7 +290,7 @@ public class PostRestClientTest {
         categories.add(7);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .limitToCategories(categories)
+                .limitToCategories(1, 7)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -310,7 +310,7 @@ public class PostRestClientTest {
         excludedCategories.add(7);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .excludeCategories(excludedCategories)
+                .excludeCategories(1, 7)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -330,7 +330,7 @@ public class PostRestClientTest {
         tags.add(3);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .limitToTags(tags)
+                .limitToTags(2, 3)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 
@@ -350,7 +350,7 @@ public class PostRestClientTest {
         excludedTags.add(3);
 
         QueryGetPosts query = new QueryGetPosts.Builder()
-                .excludeTags(excludedTags)
+                .excludeTags(2, 3)
                 .build();
         List<Post> posts = restClient.getPosts(query);
 

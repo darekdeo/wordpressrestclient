@@ -184,7 +184,7 @@ public class PageRestClientTest {
         excludedPages.add(347);
 
         QueryGetPages query = new QueryGetPages.Builder()
-                .exclude(excludedPages)
+                .exclude(286, 347)
                 .build();
         List<Page> pages = restClient.getPages(query);
 
@@ -202,7 +202,7 @@ public class PageRestClientTest {
         includedPages.add(347);
 
         QueryGetPages query = new QueryGetPages.Builder()
-                .includeOnly(includedPages)
+                .includeOnly(286, 347)
                 .build();
         List<Page> pages = restClient.getPages(query);
 
@@ -270,7 +270,7 @@ public class PageRestClientTest {
         List<Integer> parentsToExclude = new ArrayList<>();
         parentsToExclude.add(1);
         QueryGetPages query = new QueryGetPages.Builder()
-                .excludeParent(parentsToExclude)
+                .excludeParent(1)
                 .build();
         List<Page> pages = restClient.getPages(query);
 
@@ -287,7 +287,7 @@ public class PageRestClientTest {
         List<Integer> parentsToInclude = new ArrayList<>();
         parentsToInclude.add(0);
         QueryGetPages query = new QueryGetPages.Builder()
-                .limitToParent(parentsToInclude)
+                .limitToParent(0)
                 .build();
         List<Page> pages = restClient.getPages(query);
 
@@ -306,7 +306,7 @@ public class PageRestClientTest {
         slugs.add("et-totam-quia-quam-enim-id-voluptatem");
 
         QueryGetPages query = new QueryGetPages.Builder()
-                .slug(slugs)
+                .slug("adipisci-praesentium-ut-qui-est-qui", "et-totam-quia-quam-enim-id-voluptatem")
                 .build();
         List<Page> pages = restClient.getPages(query);
 
@@ -321,7 +321,7 @@ public class PageRestClientTest {
         statuses.add("publish");
 
         QueryGetPages query = new QueryGetPages.Builder()
-                .limitToStatus(statuses)
+                .limitToStatus("publish")
                 .build();
         List<Page> pages = restClient.getPages(query);
 
