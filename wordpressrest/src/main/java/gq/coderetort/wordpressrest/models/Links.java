@@ -18,4 +18,6 @@ public class Links {
     @JsonProperty("curies") List<Link> curies;
     @JsonProperty("up") List<Link> up;
     @JsonProperty("wp:post_type") List<Link> postType;
+    @JsonProperty("in-reply-to") List<Link> inReplyTo;
+    @JsonProperty("children") List<Link> children;
 }

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gq.coderetort.wordpressrest.models.Category;
+import gq.coderetort.wordpressrest.models.Comment;
 import gq.coderetort.wordpressrest.models.Page;
 import gq.coderetort.wordpressrest.models.Post;
 import gq.coderetort.wordpressrest.models.Tag;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategories;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetCategory;
+import gq.coderetort.wordpressrest.rest.queries.QueryGetComments;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPage;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPages;
 import gq.coderetort.wordpressrest.rest.queries.QueryGetPost;
@@ -452,5 +454,50 @@ public class WordPressRestClient {
             observable = apiService.getPageObservable(pageId, query.getContext(), query.getPassword());
         }
         return observable;
+    }
+
+    public List<Comment> getComments() {
+        return getComments(null);
+    }
+
+    public List<Comment> getComments(QueryGetComments query) {
+        Call<List<Comment>> call = getCommentsCall(query);
+        try {
+            Response<List<Comment>> response = call.execute();
+            return response.body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Call<List<Comment>> getCommentsCall(QueryGetComments query) {
+        Call<List<Comment>> call;
+        if (query == null) {
+            call = apiService.getComments();
+        } else {
+            call = apiService.getComments(
+                    query.getContext(),
+                    query.getPage(),
+                    query.getPerPage(),
+                    query.getSearch(),
+                    query.getAfter(),
+                    query.getAuthor(),
+                    query.getAuthorExclude(),
+                    query.getAuthorEmail(),
+                    query.getBefore(),
+                    query.getExclude(),
+                    query.getInclude(),
+                    query.getKarma(),
+                    query.getOffset(),
+                    query.getOrder(),
+                    query.getOrderBy(),
+                    query.getParent(),
+                    query.getParentExclude(),
+                    query.getPost(),
+                    query.getStatus(),
+                    query.getType());
+        }
+        return call;
     }
 }

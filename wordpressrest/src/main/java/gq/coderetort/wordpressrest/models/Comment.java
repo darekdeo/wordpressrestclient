@@ -2,7 +2,7 @@ package gq.coderetort.wordpressrest.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
+import java.util.Map;
 
 import gq.coderetort.wordpressrest.models.base.BaseEntryObject;
 
@@ -62,5 +62,5 @@ public class Comment extends BaseEntryObject {
      * <p>Read only</p>
      * <p>Context: view, edit, embed</p>
      */
-    @JsonProperty("author_avatar_urls") public List<Object> authorAvatarUrls;
+    @JsonProperty("author_avatar_urls") public Map<Integer, String> authorAvatarUrls;
 }

@@ -9,4 +9,5 @@ public class Link {
     @JsonProperty("href") public String href;
     @JsonProperty("embeddable") public Boolean embeddable;
     @JsonProperty("templated") public Boolean templated;
+    @JsonProperty("post_type") public String postType;
 }

@@ -2,8 +2,6 @@ package gq.coderetort.wordpressrest.rest.queries.base;
 
 import java.util.List;
 
-import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItems;
-
 public abstract class QueryGetEntryObjects extends QueryGetItems {
 
     private String after = null;
@@ -12,7 +10,6 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
     private String before = null;
     private Integer offset = null;
     private List<String> status = null;
-    private List<String> slug = null;
 
     public String getAfter() {
         return after;
@@ -38,10 +35,6 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
         return status;
     }
 
-    public List<String> getSlug() {
-        return slug;
-    }
-
     public QueryGetEntryObjects(Builder builder) {
         super(builder);
         after = builder.after;
@@ -50,7 +43,6 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
         before = builder.before;
         offset = builder.offset;
         status = builder.status;
-        slug = builder.slug;
     }
 
     public abstract static class Builder
@@ -62,7 +54,6 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
         private String before = null;
         private Integer offset = null;
         private List<String> status = null;
-        private List<String> slug = null;
 
         /**
          * Limit response to posts published after a given ISO8601 compliant date.
@@ -116,21 +107,11 @@ public abstract class QueryGetEntryObjects extends QueryGetItems {
 
         /**
          * Limit result set to posts assigned one or more statuses.
-         * @param statuses Default: publish
+         * @param statuses Default: publish (or approve if object type is comment)
          * @return
          */
         public T limitToStatuses(List<String> statuses) {
             this.status = statuses;
-            return getThis();
-        }
-
-        /**
-         * Limit result set to posts with one or more specific slugs.
-         * @param slugs
-         * @return
-         */
-        public T slug(List<String> slugs) {
-            this.slug = slugs;
             return getThis();
         }
     }

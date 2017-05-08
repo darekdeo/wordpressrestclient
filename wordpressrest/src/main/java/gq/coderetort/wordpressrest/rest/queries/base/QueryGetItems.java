@@ -2,8 +2,6 @@ package gq.coderetort.wordpressrest.rest.queries.base;
 
 import java.util.List;
 
-import gq.coderetort.wordpressrest.rest.queries.base.QueryGetItem;
-
 public abstract class QueryGetItems extends QueryGetItem {
 
     private Integer page = null;
@@ -125,8 +123,8 @@ public abstract class QueryGetItems extends QueryGetItem {
         }
 
         /**
-         * Sort collection by term attribute.
-         * @param orderBy Default: date; One of: id, include, name, slug, term_group, description, count
+         * Sort collection by object attribute.
+         * @param orderBy
          * @return
          */
         public T orderBy(String orderBy) {

@@ -485,6 +485,53 @@ public interface WordPressService {
 
     @GET("comments")
     Call<List<Comment>> getComments();
+
+    /**
+     * @param context Scope under which the request is made; determines fields present in response.
+     *                Default: view; One of: view, embed, edit
+     * @param page Current page of the collection. Default: 1
+     * @param perPage Maximum number of items to be returned in result set. Default: 10
+     * @param search Limit results to those matching a string.
+     * @param after Limit response to posts published after a given ISO8601 compliant date.
+     * @param author Limit result set to posts assigned to specific authors. Requires authorization.
+     * @param authorExclude Ensure result set excludes posts assigned to specific authors. Requires authorization.
+     * @param authorEmail Limit result set to that from a specific author email. Requires authorization.
+     * @param before Limit response to resources published before a given ISO8601 compliant date.
+     * @param exclude Ensure result set excludes specific IDs.
+     * @param include Limit result set to specific IDs.
+     * @param karma Limit result set to that of a particular comment karma. Requires authorization.
+     * @param offset Offset the result set by a specific number of comments.
+     * @param order Order sort attribute ascending or descending. Default: desc; One of: asc, desc
+     * @param orderBy Sort collection by object attribute. Default: date; One of: date, date_gmt, id, include, post, parent, type
+     * @param parent Limit result set to resources of specific parent ids.
+     * @param parentExclude Ensure result set excludes specific parent ids.
+     * @param post Limit result set to resources assigned to specific post ids.
+     * @param status Limit result set to comments assigned a specific status. Requires authorization. Default: approve
+     * @param type Limit result set to comments assigned a specific type. Requires authorization. Default: comment
+     * @return
+     */
+    @GET("comments")
+    Call<List<Comment>> getComments(
+            @Query("context") String context,
+            @Query("page") Integer page,
+            @Query("per_page") Integer perPage,
+            @Query("search") String search,
+            @Query("after") String after,
+            @Query("author[]") List<Integer> author,
+            @Query("author_exclude[]") List<Integer> authorExclude,
+            @Query("author_email") String authorEmail,
+            @Query("before") String before,
+            @Query("exclude[]") List<Integer> exclude,
+            @Query("include[]") List<Integer> include,
+            @Query("karma") Integer karma,
+            @Query("offset") Integer offset,
+            @Query("order") String order,
+            @Query("orderby") String orderBy,
+            @Query("parent[]") List<Integer> parent,
+            @Query("parent_exclude[]") List<Integer> parentExclude,
+            @Query("post[]") List<Integer> post,
+            @Query("status[]") List<String> status,
+            @Query("type[]") List<String> type);
     // todo add comments crud
 
     // todo add taxonomies crud

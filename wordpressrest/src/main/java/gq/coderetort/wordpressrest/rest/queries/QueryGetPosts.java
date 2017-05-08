@@ -11,6 +11,7 @@ public class QueryGetPosts extends QueryGetEntryObjects {
     private List<Integer> tags = null;
     private List<Integer> tagsExclude = null;
     private Boolean sticky = null;
+    private List<String> slug = null;
 
     public List<Integer> getCategories() {
         return categories;
@@ -32,6 +33,10 @@ public class QueryGetPosts extends QueryGetEntryObjects {
         return sticky;
     }
 
+    public List<String> getSlug() {
+        return slug;
+    }
+
     public QueryGetPosts(Builder builder) {
         super(builder);
         this.categories = builder.categories;
@@ -39,6 +44,7 @@ public class QueryGetPosts extends QueryGetEntryObjects {
         this.tags = builder.tags;
         this.tagsExclude = builder.tagsExclude;
         this.sticky = builder.sticky;
+        this.slug = builder.slug;
     }
 
     public static class Builder extends QueryGetEntryObjects.Builder<Builder, QueryGetPosts> {
@@ -48,6 +54,7 @@ public class QueryGetPosts extends QueryGetEntryObjects {
         private List<Integer> tags = null;
         private List<Integer> tagsExclude = null;
         private Boolean sticky = null;
+        private List<String> slug = null;
 
         /**
          * Limit result set to all items that have the specified term assigned in the categories taxonomy.
@@ -97,6 +104,16 @@ public class QueryGetPosts extends QueryGetEntryObjects {
         public Builder onlySticky(boolean sticky) {
             this.sticky = sticky;
             return this;
+        }
+
+        /**
+         * Limit result set to posts with one or more specific slugs.
+         * @param slugs
+         * @return
+         */
+        public Builder slug(List<String> slugs) {
+            this.slug = slugs;
+            return getThis();
         }
 
         @Override
