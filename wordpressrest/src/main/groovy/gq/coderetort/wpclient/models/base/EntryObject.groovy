@@ -82,7 +82,7 @@ abstract class EntryObject extends BaseEntryObject {
      * @return
      */
     Date getModified() {
-        return DateUtils.parseISO8601(modified)
+        DateUtils.parseISO8601(modified)
     }
 
     /**
@@ -90,6 +90,6 @@ abstract class EntryObject extends BaseEntryObject {
      * @return
      */
     Date getModifiedGmt() {
-        return DateUtils.parseISO8601(modifiedGmt)
+        DateUtils.parseISO8601(modifiedGmt)
     }
 }

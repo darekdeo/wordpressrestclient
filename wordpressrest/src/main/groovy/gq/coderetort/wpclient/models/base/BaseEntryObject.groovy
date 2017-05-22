@@ -49,7 +49,7 @@ abstract class BaseEntryObject extends BaseObject {
      * @return date or null
      */
     Date getDate() {
-        return DateUtils.parseISO8601(date)
+        DateUtils.parseISO8601(date)
     }
 
     /**
@@ -65,7 +65,7 @@ abstract class BaseEntryObject extends BaseObject {
      * @return
      */
     Date getDateGmt() {
-        return DateUtils.parseISO8601(dateGmt)
+        DateUtils.parseISO8601(dateGmt)
     }
 
     /**

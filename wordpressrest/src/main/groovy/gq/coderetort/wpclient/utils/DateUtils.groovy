@@ -3,10 +3,12 @@ package gq.coderetort.wpclient.utils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
-public class DateUtils {
+class DateUtils {
 
-    public static Date parseISO8601(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault())
+    static def format = "YYYY-MM-DD'T'hh:mm:ss"
+
+    static Date parseISO8601(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault())
         Date dateObject = null
         try {
             dateObject = sdf.parse(date)
@@ -16,8 +18,8 @@ public class DateUtils {
         dateObject
     }
 
-    public static String parseISO8601(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault())
+    static String parseISO8601(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault())
         sdf.format(date)
     }
 }
