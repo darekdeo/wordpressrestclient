@@ -1,5 +1,6 @@
 package gq.coderetort.wpclient.rest.queries
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.builder.Builder;
 
 @Builder
@@ -7,41 +8,42 @@ class Query {
 
     String context
     Integer page
-    Integer perPage
+    @JsonProperty("per_page") perPage
     String search
     List<Integer> exclude
     List<Integer> include
     String order
-    String orderBy
-    Boolean hideEmpty
+    @JsonProperty("orderby") String orderBy
+    @JsonProperty("hide_empty") Boolean hideEmpty
 //    Integer post
 //    String slug
     String password
     String after
     List<Integer> author
-    List<Integer> authorExclude
+    @JsonProperty("author_exclude") List<Integer> authorExclude
     String before
     Integer offset
     List<String> status
 //    Integer parent
     List<Integer> parent
-    List<Integer> parentExclude
-    String authorEmail
+    @JsonProperty("parent_exclude") List<Integer> parentExclude
+    @JsonProperty("author_email") String authorEmail
     Integer karma
     List<Integer> post
     List<String> type
-    Integer menuOrder;
+    @JsonProperty("menu_order") Integer menuOrder;
     List<String> slug;
     List<String> filter; // todo how to do
     List<Integer> categories
-    List<Integer> categoriesExclude
+    @JsonProperty("categories_exclude") List<Integer> categoriesExclude
     List<Integer> tags
-    List<Integer> tagsExclude
+    @JsonProperty("tags_exclude") List<Integer> tagsExclude
     Boolean sticky
 
     Map asMap() {
         this.class.declaredFields.findAll { !it.synthetic && this."$it.name" != null }.collectEntries {
-            [ (it.name):this."$it.name" ]
+            def jsonName = this.getClass().getDeclaredField(it.name).getAnnotation(JsonProperty)?.value()
+            [ (jsonName?:it.name):this."$it.name" ]
         }
     }
 
