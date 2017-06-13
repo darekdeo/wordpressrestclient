@@ -31,13 +31,13 @@ class Query {
     Integer offset
     List<String> status
 //    Integer parent
-    List<Integer> parent
+    Integer parent // todo see if list is needed
     @JsonProperty("parent_exclude")
-    List<Integer> parentExclude
+    Integer parentExclude // todo see if list is needed
     @JsonProperty("author_email")
     String authorEmail
     Integer karma
-    List<Integer> post
+    Integer post // todo see if list is needed
     List<String> type
     @JsonProperty("menu_order")
     Integer menuOrder;

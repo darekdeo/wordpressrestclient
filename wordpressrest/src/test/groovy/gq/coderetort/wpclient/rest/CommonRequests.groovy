@@ -9,7 +9,8 @@ import spock.lang.Specification
 abstract class CommonRequests extends Specification {
 
     WordPressRestClient restClient
-    @Shared Closure get
+    @Shared
+    Closure get
 
     def setup() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor({ println it })

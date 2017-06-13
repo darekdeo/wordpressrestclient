@@ -4,45 +4,13 @@ import gq.coderetort.wpclient.models.Post
 import gq.coderetort.wpclient.rest.queries.Query
 import gq.coderetort.wpclient.utils.DateUtils
 
-class PostsRequests extends CommonRequests {
+class PostsRequests extends CommonListRequests {
 
     Closure get = { restClient.getPosts(it) }
-
-    def "get certain amount of posts of page"() {
-        given: "A query with specified request params"
-        def itemsPerPage = 5
-        Query query = new Query.QueryBuilder()
-                .page(1)
-                .perPage(itemsPerPage)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "Size of the list of posts should match specified items per page"
-        posts != null
-        posts.size() == itemsPerPage
-    }
-
-    def "get posts by search"() {
-        given: "A search string and query with specified request params"
-        def searchString = "Welcome"
-        Query query = new Query.QueryBuilder()
-                .search(searchString)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of post should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "each post should contain search string in either rendered or slug"
-        posts.each { post ->
-            assert (post.content?.rendered?.contains(searchString) || post.slug?.contains(searchString))
-        }
-    }
+    String searchString = "Welcome"
+    def excluded = [9, 11, 33]
+    def included = [9, 11, 33]
+    def slug = ["ipsam-voluptate-nulla-consequatur-id-et", "omnis-cumque-autem-culpa-assumenda-consequatur"]
 
     def "get posts by after date"() {
         given: "An after date to check and query with specified request params"
@@ -130,52 +98,6 @@ class PostsRequests extends CommonRequests {
         }
     }
 
-    def "get posts without excluded ones"() {
-        given: "A list of excluded posts and query with specified request params"
-        def excludedPosts = []
-        excludedPosts.add 9
-        excludedPosts.add 11
-        excludedPosts.add 33
-        Query query = new Query.QueryBuilder()
-                .exclude(excludedPosts)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "excluded posts should not be in the list"
-        posts.each { post ->
-            assert !excludedPosts.contains(post.id)
-        }
-    }
-
-    def "get only included posts"() {
-        given: "A list of included post ids and query with specified request params"
-        def includedPosts = []
-        includedPosts.add 9
-        includedPosts.add 11
-        includedPosts.add 33
-        Query query = new Query.QueryBuilder()
-                .include(includedPosts)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "posts should be in the included list"
-        posts.each { post ->
-            assert includedPosts.contains(post.id)
-        }
-    }
-
     def "get posts by offset"() {
         given: "A query with specified request params"
         Query query = new Query.QueryBuilder()
@@ -188,60 +110,6 @@ class PostsRequests extends CommonRequests {
         then: "List of posts should not be empty"
         posts != null
         !posts.isEmpty()
-    }
-
-    def "get posts by order"() {
-        given: "A query with specified request params"
-        Query query = new Query.QueryBuilder()
-                .order("asc")
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "first post has specified id"
-        posts.get(0).id == 29
-    }
-
-    def "get posts by orderby"() {
-        given: "A query with specified request params"
-        Query query = new Query.QueryBuilder()
-                .orderBy("slug")
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-    }
-
-    def "get posts by slug"() {
-        given: "List of slug and query with specified request params"
-        def slugs = []
-        slugs.add "ipsam-voluptate-nulla-consequatur-id-et"
-        slugs.add "omnis-cumque-autem-culpa-assumenda-consequatur"
-        Query query = new Query.QueryBuilder()
-                .slug(slugs)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "should contain only two items with specified slug"
-        posts.size() == 2
-        posts.each { post ->
-            assert slugs.contains(post.slug)
-        }
     }
 
     def "get posts by status"() {
