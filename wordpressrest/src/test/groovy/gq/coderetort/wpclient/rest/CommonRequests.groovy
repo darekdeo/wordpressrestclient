@@ -1,6 +1,5 @@
 package gq.coderetort.wpclient.rest
 
-import gq.coderetort.wpclient.models.Post
 import gq.coderetort.wpclient.rest.queries.Query
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -24,10 +23,15 @@ abstract class CommonRequests extends Specification {
 
     def "get non empty list of models"() {
         when: "Models are downloaded from rest"
-        def posts = get()
+        def models = get()
+
         then: "List of models should not be null or empty"
-        posts != null
-        !posts?.isEmpty()
+        models != null
+        try {
+            !models?.isEmpty()
+        } catch (MissingMethodException e) {
+            // is not a list
+        }
     }
 
     def "get non empty list of models by context"() {
@@ -35,10 +39,16 @@ abstract class CommonRequests extends Specification {
         Query query = new Query.QueryBuilder()
                 .context("view") // default
                 .build()
+
         when: "Models are downloaded from rest with given query"
-        List<Post> posts = get(query)
+        def models = get(query)
+
         then: "List of models should not be null or empty"
-        posts != null
-        !posts?.isEmpty()
+        models != null
+        try {
+            !models?.isEmpty()
+        } catch (MissingMethodException e) {
+            // is not a list
+        }
     }
 }
