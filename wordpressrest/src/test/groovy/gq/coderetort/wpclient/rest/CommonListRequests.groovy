@@ -115,6 +115,20 @@ abstract class CommonListRequests extends CommonRequests {
         }
     }
 
+    def "get models by offset"() {
+        given: "A query with specified request params"
+        Query query = new Query.QueryBuilder()
+                .offset(1)
+                .build()
+
+        when: "Models are downloaded from rest with given query"
+        def posts = get(query)
+
+        then: "List of models should not be empty"
+        posts != null
+        !posts.isEmpty()
+    }
+
     def "get models by slug"() {
         given: "A query with specified request params"
         Query query = new Query.QueryBuilder()

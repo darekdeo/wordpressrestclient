@@ -98,20 +98,6 @@ class PostsRequests extends CommonListRequests {
         }
     }
 
-    def "get posts by offset"() {
-        given: "A query with specified request params"
-        Query query = new Query.QueryBuilder()
-                .offset(3)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-    }
-
     def "get posts by status"() {
         given: "List of statuses and query with specified request params"
         def statuses = []
