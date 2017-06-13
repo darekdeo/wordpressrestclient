@@ -1,6 +1,7 @@
 package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.models.Category
+import gq.coderetort.wpclient.models.Comment
 import gq.coderetort.wpclient.models.Post
 import gq.coderetort.wpclient.models.Tag
 import io.reactivex.Observable
@@ -82,4 +83,28 @@ interface WordPressService {
     @GET("tags/{id}")
     Observable<Tag> getTagObservable(@Path("id") Integer tagId,
                                      @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("comments")
+    Call<List<Comment>> getComments(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("comments")
+    Observable<List<Comment>> getCommentsObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param commentId Id of a comment.
+     * @return
+     */
+    @GET("comments/{id}")
+    Call<Comment> getComment(@Path("id") Integer commentId,
+                     @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param commentId Id of a comment.
+     * @return
+     */
+    @GET("comments/{id}")
+    Observable<Comment> getCommentObservable(@Path("id") Integer commentId,
+                         @QueryMap(encoded = true) Map<String, Object> params)
 }

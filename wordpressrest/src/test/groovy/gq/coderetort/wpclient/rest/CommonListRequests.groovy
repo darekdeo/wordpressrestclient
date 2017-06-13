@@ -18,7 +18,7 @@ abstract class CommonListRequests extends CommonRequests {
 
     def "get certain amount of models in specified page"() {
         given: "A query with specified request params"
-        def itemsPerPage = 2
+        def itemsPerPage = 1
         Query query = new Query.QueryBuilder()
                 .page(1)
                 .perPage(itemsPerPage)
@@ -118,7 +118,7 @@ abstract class CommonListRequests extends CommonRequests {
     def "get models by offset"() {
         given: "A query with specified request params"
         Query query = new Query.QueryBuilder()
-                .offset(1)
+                .offset(0)
                 .build()
 
         when: "Models are downloaded from rest with given query"
@@ -144,7 +144,8 @@ abstract class CommonListRequests extends CommonRequests {
 
         and: "should contain only items with specified slug"
         models.each { model ->
-            assert slug.contains(model.slug)
+            if (model.hasProperty("slug")) // Comment does not have such property
+                assert slug.contains(model.slug)
         }
     }
 }
