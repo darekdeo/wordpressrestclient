@@ -77,4 +77,43 @@ class PostsRequests extends CommonRequests {
         }
     }
 
+    def "get posts not by excluded authors"() {
+        given: "A list of excluded authors and query with specified request params"
+        List<Integer> excludedAuthors = new ArrayList<>()
+        excludedAuthors.add(2)
+        excludedAuthors.add(3)
+        Query query = new Query.QueryBuilder()
+            .authorExclude(excludedAuthors)
+            .build()
+        when: "Posts are downloaded from rest with given query"
+        List<Post> posts = get(query) // todo make sure adding minus to argument is not necessary
+        then: "List of posts should not be empty"
+        posts != null
+        !posts.isEmpty()
+        and: "each post should not be written by one of specified authors"
+        posts.each { post ->
+            assert !excludedAuthors.contains(post.author)
+        }
+    }
+
+    def "get posts by before date"() {
+        given: "A before date and query with specified request params"
+        String dateBefore = "2017-06-01T12:00:00"
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault())
+        Date beforeDate = sdf.parse(dateBefore)
+        Query query = new Query.QueryBuilder()
+            .before(dateBefore)
+            .build()
+        when: "Posts are downloaded from rest with given query"
+        List<Post> posts = get(query)
+        then: "List of posts should not be empty"
+        posts != null
+        !posts.isEmpty()
+        and: "each post should be before specified date"
+        posts.each { post ->
+            assert post.getDate() != null
+            assert post.getDate().before(beforeDate)
+        }
+    }
+
 }
