@@ -61,13 +61,14 @@ class PostsRequests extends CommonRequests {
     def "get posts by authors"() {
         given: "A list of authors to check and query with specified request params"
         List<Integer> authors = new ArrayList<>();
-        authors.add(226);
+        authors.add(1)
+        authors.add(2)
         Query query = new Query.QueryBuilder()
                 .author(authors)
-                .build();
+                .build()
         when: "Posts are downloaded from rest with given query"
         List<Post> posts = get(query)
-        then: "List of posts should not be empty" // todo fix it
+        then: "List of posts should not be empty"
         posts != null
         !posts.isEmpty()
         and: "each post should be written by one of specified authors"

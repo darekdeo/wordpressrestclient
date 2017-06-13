@@ -16,6 +16,7 @@ abstract class CommonRequests extends Specification {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor({ println it })
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
         OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(new WordPressNetworkInterceptor())
                 .addInterceptor(interceptor)
                 .build()
         restClient = new WordPressRestClient(httpClient, "http://demo.wp-api.org/wp-json/wp/v2/")

@@ -12,12 +12,12 @@ interface WordPressService {
 
     @GET("posts")
     Call<List<Post>> getPosts(
-            @QueryMap Map<String, Object> params
+            @QueryMap(encoded = true) Map<String, Object> params
     )
 
     @GET("posts")
     Observable<List<Post>> getPostsObservable(
-            @QueryMap Map<String, Object> params
+            @QueryMap(encoded = true) Map<String, Object> params
     )
 
     /**

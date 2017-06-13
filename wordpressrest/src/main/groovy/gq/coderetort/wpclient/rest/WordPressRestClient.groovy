@@ -15,12 +15,16 @@ class WordPressRestClient {
     WordPressRestClient(OkHttpClient httpClient, String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(httpClient ?: new OkHttpClient())
+                .client(httpClient ?: getDefaultOkHttpClient())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
 
         apiService = retrofit.create(WordPressService.class)
+    }
+
+    private OkHttpClient getDefaultOkHttpClient() {
+        new OkHttpClient.Builder().addNetworkInterceptor(new WordPressNetworkInterceptor()).build()
     }
 
     List<Post> getPosts(@Nullable Query query = null) {
