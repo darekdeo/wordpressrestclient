@@ -31,8 +31,8 @@ class WordPressRestClient {
         executeSafeCall(query, { apiService.getPosts(it) })?.body()
     }
 
-    Post getPost(@Nullable Query query = null) {
-        executeSafeCall(query, { apiService.getPost(it) })?.body()
+    Post getPost(int id, @Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getPost(id, it) })?.body()
     }
 
     private static def executeSafeCall(@Nullable Query query, Closure closure) {
