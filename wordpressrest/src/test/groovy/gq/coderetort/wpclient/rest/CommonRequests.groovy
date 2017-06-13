@@ -11,6 +11,8 @@ abstract class CommonRequests extends Specification {
     WordPressRestClient restClient
     @Shared
     Closure get
+    @Shared
+    int modelId
 
     def setup() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor({ println it })
@@ -26,12 +28,13 @@ abstract class CommonRequests extends Specification {
         when: "Models are downloaded from rest"
         def models = get()
 
-        then: "List of models should not be null or empty"
+        then: "List of models should not be null or empty or model should be specified id"
         models != null
         try {
             !models?.isEmpty()
         } catch (MissingMethodException e) {
-            // is not a list
+            // is not a list, check model id
+            models.id == modelId
         }
     }
 
@@ -44,12 +47,13 @@ abstract class CommonRequests extends Specification {
         when: "Models are downloaded from rest with given query"
         def models = get(query)
 
-        then: "List of models should not be null or empty"
+        then: "List of models should not be null or empty or model should be specified id"
         models != null
         try {
             !models?.isEmpty()
         } catch (MissingMethodException e) {
-            // is not a list
+            // is not a list, check model id
+            models.id == modelId
         }
     }
 }

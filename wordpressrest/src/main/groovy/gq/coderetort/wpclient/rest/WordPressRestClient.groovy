@@ -2,6 +2,7 @@ package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.models.Category
 import gq.coderetort.wpclient.models.Post
+import gq.coderetort.wpclient.models.Tag
 import gq.coderetort.wpclient.rest.queries.Query
 import io.reactivex.annotations.Nullable
 import okhttp3.OkHttpClient
@@ -42,6 +43,14 @@ class WordPressRestClient {
 
     Category getCategory(int id, @Nullable Query query = null) {
         executeSafeCall(query, { apiService.getCategory(id, it) })?.body()
+    }
+
+    List<Tag> getTags(@Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getTags(it) })?.body()
+    }
+
+    Tag getTag(int id, Query query = null) {
+        executeSafeCall(query, { apiService.getTag(id, it) })?.body()
     }
 
     private static def executeSafeCall(@Nullable Query query, Closure closure) {

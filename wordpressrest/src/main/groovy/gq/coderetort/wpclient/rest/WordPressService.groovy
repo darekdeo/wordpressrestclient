@@ -2,6 +2,7 @@ package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.models.Category
 import gq.coderetort.wpclient.models.Post
+import gq.coderetort.wpclient.models.Tag
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
@@ -48,7 +49,7 @@ interface WordPressService {
      */
     @GET("categories/{id}")
     Call<Category> getCategory(@Path("id") Integer categoryId,
-                       @QueryMap(encoded = true) Map<String, Object> params)
+                               @QueryMap(encoded = true) Map<String, Object> params)
 
     /**
      * @param categoryId Id of a category.
@@ -56,5 +57,29 @@ interface WordPressService {
      */
     @GET("categories/{id}")
     Observable<Category> getCategoryObservable(@Path("id") Integer categoryId,
-                           @QueryMap(encoded = true) Map<String, Object> params)
+                                               @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("tags")
+    Call<List<Tag>> getTags(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("tags")
+    Observable<List<Tag>> getTagsObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param tagId Id of a tag.
+     * @return
+     */
+    @GET("tags/{id}")
+    Call<Tag> getTag(@Path("id") Integer tagId,
+                     @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param tagId Id of a tag.
+     * @return
+     */
+    @GET("tags/{id}")
+    Observable<Tag> getTagObservable(@Path("id") Integer tagId,
+                                     @QueryMap(encoded = true) Map<String, Object> params)
 }
