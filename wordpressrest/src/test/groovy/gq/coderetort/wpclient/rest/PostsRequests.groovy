@@ -1,109 +1,27 @@
 package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.models.Post
+import gq.coderetort.wpclient.rest.base.EntriesRequests
 import gq.coderetort.wpclient.rest.queries.Query
-import gq.coderetort.wpclient.utils.DateUtils
 
-class PostsRequests extends CommonListRequests {
+class PostsRequests extends EntriesRequests {
 
     Closure get = { restClient.getPosts(it) }
     String searchString = "Welcome"
+    String dateAfter = "2017-03-01T12:00:00"
+    String dateBefore = "2017-06-01T12:00:00"
     def excluded = [9, 11, 33]
     def included = [9, 11, 33]
+    def authors = [1, 2]
+    def excludedAuthors = [2, 3]
     def slug = ["ipsam-voluptate-nulla-consequatur-id-et", "omnis-cumque-autem-culpa-assumenda-consequatur"]
-
-    def "get posts by after date"() {
-        given: "An after date to check and query with specified request params"
-        String dateAfter = "2017-03-01T12:00:00"
-        Date afterDate = DateUtils.parseISO8601(dateAfter)
-
-        Query query = new Query.QueryBuilder()
-                .after(dateAfter)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "each post should be after the specified date"
-        posts.each { post -> assert post.getDate().after(afterDate) }
-    }
-
-    def "get posts by authors"() {
-        given: "A list of authors to check and query with specified request params"
-        def authors = []
-        authors.add 1
-        authors.add 2
-        Query query = new Query.QueryBuilder()
-                .author(authors)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "each post should be written by one of specified authors"
-        posts.each { post ->
-            assert authors.contains(post.author)
-        }
-    }
-
-    def "get posts not by excluded authors"() {
-        given: "A list of excluded authors and query with specified request params"
-        def excludedAuthors = []
-        excludedAuthors.add 2
-        excludedAuthors.add 3
-        Query query = new Query.QueryBuilder()
-                .authorExclude(excludedAuthors)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query) // todo make sure adding minus to argument is not necessary
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "each post should not be written by one of specified authors"
-        posts.each { post ->
-            assert !excludedAuthors.contains(post.author)
-        }
-    }
-
-    def "get posts by before date"() {
-        given: "A before date and query with specified request params"
-        String dateBefore = "2017-06-01T12:00:00"
-        Date beforeDate = DateUtils.parseISO8601(dateBefore)
-        Query query = new Query.QueryBuilder()
-                .before(dateBefore)
-                .build()
-
-        when: "Posts are downloaded from rest with given query"
-        List<Post> posts = get(query)
-
-        then: "List of posts should not be empty"
-        posts != null
-        !posts.isEmpty()
-
-        and: "each post should be before specified date"
-        posts.each { post ->
-            assert post.getDate() != null
-            assert post.getDate().before(beforeDate)
-        }
-    }
 
     def "get posts by status"() {
         given: "List of statuses and query with specified request params"
         def statuses = []
         statuses.add "publish"
         Query query = new Query.QueryBuilder()
-                .status(statuses)
+                .statusList(statuses)
                 .build()
 
         when: "Posts are downloaded from rest with given query"

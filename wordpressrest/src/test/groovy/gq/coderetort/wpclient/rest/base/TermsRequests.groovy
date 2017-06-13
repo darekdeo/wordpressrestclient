@@ -1,9 +1,9 @@
-package gq.coderetort.wpclient.rest
+package gq.coderetort.wpclient.rest.base
 
 import gq.coderetort.wpclient.rest.queries.Query
-import spock.lang.Shared;
+import spock.lang.Shared
 
-abstract class TermRequests extends CommonListRequests {
+abstract class TermsRequests extends CommonListRequests {
 
     @Shared
     int postId

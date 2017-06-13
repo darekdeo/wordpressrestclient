@@ -1,6 +1,8 @@
-package gq.coderetort.wpclient.rest;
+package gq.coderetort.wpclient.rest
 
-class TagsRequests extends TermRequests {
+import gq.coderetort.wpclient.rest.base.TermsRequests;
+
+class TagsRequests extends TermsRequests {
 
     Closure get = { restClient.getTags(it) }
     String searchString = "accusantium"

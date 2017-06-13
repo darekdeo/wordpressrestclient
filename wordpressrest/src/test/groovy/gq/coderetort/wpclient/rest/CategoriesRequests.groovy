@@ -1,8 +1,9 @@
 package gq.coderetort.wpclient.rest
 
+import gq.coderetort.wpclient.rest.base.TermsRequests
 import gq.coderetort.wpclient.rest.queries.Query
 
-class CategoriesRequests extends TermRequests {
+class CategoriesRequests extends TermsRequests {
 
     Closure get = { restClient.getCategories(it) }
     String searchString = "architecto"

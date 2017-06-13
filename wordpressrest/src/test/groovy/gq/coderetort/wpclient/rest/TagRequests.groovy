@@ -1,4 +1,6 @@
-package gq.coderetort.wpclient.rest;
+package gq.coderetort.wpclient.rest
+
+import gq.coderetort.wpclient.rest.base.CommonRequests;
 
 class TagRequests extends CommonRequests {
 

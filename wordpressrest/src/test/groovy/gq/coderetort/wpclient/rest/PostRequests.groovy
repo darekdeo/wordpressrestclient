@@ -1,6 +1,7 @@
 package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.models.Post
+import gq.coderetort.wpclient.rest.base.CommonRequests
 import gq.coderetort.wpclient.rest.queries.Query
 
 class PostRequests extends CommonRequests {

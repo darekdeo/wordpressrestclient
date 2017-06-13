@@ -1,5 +1,7 @@
-package gq.coderetort.wpclient.rest
+package gq.coderetort.wpclient.rest.base
 
+import gq.coderetort.wpclient.rest.WordPressNetworkInterceptor
+import gq.coderetort.wpclient.rest.WordPressRestClient
 import gq.coderetort.wpclient.rest.queries.Query
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

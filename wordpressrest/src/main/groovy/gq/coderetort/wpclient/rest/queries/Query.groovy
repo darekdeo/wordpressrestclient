@@ -29,16 +29,23 @@ class Query {
     List<Integer> authorExclude
     String before
     Integer offset
-    List<String> status
-//    Integer parent
-    Integer parent // todo see if list is needed
+    String status
+    @JsonProperty("status")
+    List<String> statusList
+    Integer parent
     @JsonProperty("parent_exclude")
-    Integer parentExclude // todo see if list is needed
+    Integer parentExclude
+    @JsonProperty("parent")
+    List<Integer> parentList
+    @JsonProperty("parent_exclude")
+    List<Integer> parentExcludeList
     @JsonProperty("author_email")
     String authorEmail
     Integer karma
-    Integer post // todo see if list is needed
-    List<String> type
+    Integer post
+    @JsonProperty("post")
+    List<Integer> postList
+    String type
     @JsonProperty("menu_order")
     Integer menuOrder;
     List<String> slug;
