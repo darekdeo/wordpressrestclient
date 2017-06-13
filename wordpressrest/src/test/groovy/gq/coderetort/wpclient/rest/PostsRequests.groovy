@@ -2,8 +2,7 @@ package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.models.Post
 import gq.coderetort.wpclient.rest.queries.Query
-
-import java.text.SimpleDateFormat
+import gq.coderetort.wpclient.utils.DateUtils
 
 class PostsRequests extends CommonRequests {
 
@@ -43,8 +42,7 @@ class PostsRequests extends CommonRequests {
     def "get posts by after date"() {
         given: "An after date to check and query with specified request params"
         String dateAfter = "2017-03-01T12:00:00"
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault())
-        Date afterDate = sdf.parse(dateAfter)
+        Date afterDate = DateUtils.parseISO8601(dateAfter)
 
         Query query = new Query.QueryBuilder()
                 .after(dateAfter)
@@ -99,8 +97,7 @@ class PostsRequests extends CommonRequests {
     def "get posts by before date"() {
         given: "A before date and query with specified request params"
         String dateBefore = "2017-06-01T12:00:00"
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss", Locale.getDefault())
-        Date beforeDate = sdf.parse(dateBefore)
+        Date beforeDate = DateUtils.parseISO8601(dateBefore)
         Query query = new Query.QueryBuilder()
             .before(dateBefore)
             .build()
