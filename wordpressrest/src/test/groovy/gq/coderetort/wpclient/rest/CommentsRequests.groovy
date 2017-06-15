@@ -3,7 +3,7 @@ package gq.coderetort.wpclient.rest
 import gq.coderetort.wpclient.models.Comment
 import gq.coderetort.wpclient.rest.base.EntriesRequests
 import gq.coderetort.wpclient.rest.queries.Query
-import spock.lang.Ignore;
+import spock.lang.Ignore
 
 class CommentsRequests extends EntriesRequests {
 
@@ -15,6 +15,9 @@ class CommentsRequests extends EntriesRequests {
     def included = [1]
     def authors = []
     def excludedAuthors = []
+    def parents = [0]
+    def excludedParents = [1, 2]
+    String status = null // should be "approved" but we are unauthorized
 
     @Ignore("unauthorized")
     def "get comments by author email"() {
@@ -57,46 +60,6 @@ class CommentsRequests extends EntriesRequests {
         }
     }
 
-    def "get comments by parent exclude"() {
-        given: "Excluded parents to check and query with specified request params"
-        def excludedParents = [1, 2]
-        Query query = new Query.QueryBuilder()
-                .parentExcludeList(excludedParents)
-                .build()
-
-        when: "Comments are downloaded from rest"
-        List<Comment> comments = get(query)
-
-        then: "List of comments should not be null or empty"
-        comments != null
-        !comments.isEmpty()
-
-        and: "each comment parent should not be in excluded parents"
-        comments.each { comment ->
-            assert !excludedParents.contains(comment.parent)
-        }
-    }
-
-    def "get comments by parent include"() {
-        given: "Parents to check and query with specified request params"
-        def parents = [0]
-        Query query = new Query.QueryBuilder()
-            .parentList(parents)
-            .build()
-
-        when: "Comments are downloaded from rest"
-        List<Comment> comments = get(query)
-
-        then: "List of comments should not be null or empty"
-        comments != null
-        !comments.isEmpty()
-
-        and: "each comment parent should be in included parents"
-        comments.each { comment ->
-            assert parents.contains(comment.parent)
-        }
-    }
-
     def "get comments by posts"() {
         given: "Posts to check and query with specified request params"
         def posts = [1]
@@ -114,26 +77,6 @@ class CommentsRequests extends EntriesRequests {
         and: "each comment should be for specified posts"
         comments.each { comment ->
             assert posts.contains(comment.post)
-        }
-    }
-
-    @Ignore("unauthorized")
-    def "get comments by status"() {
-        given: "A query with specified request params"
-        Query query = new Query.QueryBuilder()
-                .status("approved")
-                .build()
-
-        when: "Comments are downloaded from rest"
-        List<Comment> comments = get(query)
-
-        then: "List of comments should not be null or empty"
-        comments != null
-        !comments.isEmpty()
-
-        and: "each comment should have specified status"
-        comments.each { comment ->
-            assert comment.status == "approved"
         }
     }
 
