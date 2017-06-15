@@ -2,9 +2,9 @@ package gq.coderetort.wpclient.rest
 
 import gq.coderetort.wpclient.rest.base.ProtectedRequests
 
-class PostRequests extends ProtectedRequests {
+class PageRequests extends ProtectedRequests {
 
-    int modelId = 33
+    int modelId = 2
     String password = "test_password"
-    Closure get = { restClient.getPost(modelId, it) }
+    Closure get = { restClient.getPage(modelId, it) }
 }

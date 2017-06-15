@@ -1,14 +1,13 @@
 package gq.coderetort.wpclient.rest
 
-import gq.coderetort.wpclient.models.Category
-import gq.coderetort.wpclient.models.Comment
-import gq.coderetort.wpclient.models.Post
-import gq.coderetort.wpclient.models.Tag
+import gq.coderetort.wpclient.models.*
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+
+import java.lang.Object
 
 interface WordPressService {
 
@@ -98,7 +97,7 @@ interface WordPressService {
      */
     @GET("comments/{id}")
     Call<Comment> getComment(@Path("id") Integer commentId,
-                     @QueryMap(encoded = true) Map<String, Object> params)
+                             @QueryMap(encoded = true) Map<String, Object> params)
 
     /**
      * @param commentId Id of a comment.
@@ -106,5 +105,29 @@ interface WordPressService {
      */
     @GET("comments/{id}")
     Observable<Comment> getCommentObservable(@Path("id") Integer commentId,
-                         @QueryMap(encoded = true) Map<String, Object> params)
+                                             @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("pages")
+    Call<List<Page>> getPages(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("pages")
+    Observable<List<Page>> getPagesObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param pageId Id of a page.
+     * @return
+     */
+    @GET("pages/{id}")
+    Call<Page> getPage(@Path("id") Integer pageId,
+                       @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param pageId Id of a page.
+     * @return
+     */
+    @GET("pages/{id}")
+    Observable<Page> getPageObservable(@Path("id") Integer pageId,
+                                       @QueryMap(encoded = true) Map<String, Object> params)
 }
