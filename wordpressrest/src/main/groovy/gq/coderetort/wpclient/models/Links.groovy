@@ -18,4 +18,5 @@ class Links {
     @JsonProperty("wp:post_type") List<Link> postType
     @JsonProperty("in-reply-to") List<Link> inReplyTo
     @JsonProperty("children") List<Link> children
+    @JsonProperty("wp:items") List<Link> items
 }

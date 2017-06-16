@@ -17,13 +17,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    testOptions {
+//        unitTests.returnDefaultValues = true
+//    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
+    testCompile 'org.json:json:20170516'
 
     compile "org.codehaus.groovy:groovy:2.4.10:grooid"
+    compile "org.codehaus.groovy:groovy-xml:2.4.10"
+    compile "org.codehaus.groovy:groovy-json:2.4.10"
+
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'

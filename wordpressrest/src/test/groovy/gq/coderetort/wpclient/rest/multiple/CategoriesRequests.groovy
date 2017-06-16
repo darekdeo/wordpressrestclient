@@ -1,4 +1,4 @@
-package gq.coderetort.wpclient.rest
+package gq.coderetort.wpclient.rest.multiple
 
 import gq.coderetort.wpclient.rest.base.TermsRequests
 import gq.coderetort.wpclient.rest.queries.Query

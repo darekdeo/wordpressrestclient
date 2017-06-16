@@ -35,7 +35,7 @@ abstract class CommonRequests extends Specification {
         try {
             !models?.isEmpty()
         } catch (MissingMethodException e) {
-            // is not a list, check model id
+            // is not a list, check model id or taxonomy
             models.id == modelId
         }
     }

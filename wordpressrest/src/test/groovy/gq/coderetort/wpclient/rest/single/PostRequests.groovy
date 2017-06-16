@@ -1,4 +1,4 @@
-package gq.coderetort.wpclient.rest
+package gq.coderetort.wpclient.rest.single
 
 import gq.coderetort.wpclient.rest.base.ProtectedRequests
 

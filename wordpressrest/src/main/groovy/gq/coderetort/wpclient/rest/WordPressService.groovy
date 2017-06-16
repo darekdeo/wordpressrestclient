@@ -130,4 +130,28 @@ interface WordPressService {
     @GET("pages/{id}")
     Observable<Page> getPageObservable(@Path("id") Integer pageId,
                                        @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("taxonomies")
+    Call<List<Taxonomy>> getTaxonomies(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("taxonomies")
+    Observable<List<Taxonomy>> getTaxonomiesObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param taxonomy a taxonomy.
+     * @return
+     */
+    @GET("taxonomies/{taxonomy}")
+    Call<Taxonomy> getTaxonomy(@Path("taxonomy") String taxonomy,
+                                           @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param taxonomy a taxonomy.
+     * @return
+     */
+    @GET("taxonomies/{taxonomy}")
+    Observable<Taxonomy> getTaxonomyObservable(@Path("taxonomy") String taxonomy,
+                                       @QueryMap(encoded = true) Map<String, Object> params)
 }
