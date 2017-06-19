@@ -64,9 +64,6 @@ class TaxonomiesResponseBodyConverter<T> implements Converter<ResponseBody, T> {
                         case ("labels"):
                             // todo add labels parsing
                             break
-                        case ("types"):
-//                            taxonomy.types = parseTypes(taxonomyField)
-                            break
                         case ("meta"):
                             // todo add meta parsing
                             break
@@ -77,14 +74,13 @@ class TaxonomiesResponseBodyConverter<T> implements Converter<ResponseBody, T> {
                 }
                 taxonomies.add taxonomy
             }
-            taxonomies.get(0)
             return taxonomies
         } finally {
             value.close()
         }
     }
 
-    public Links parseLinks(taxonomyField) {
+    public Links parseLinks(taxonomyField) { // todo add test
         Links linksObject = new Links()
         taxonomyField.value.each { links ->
             def linkList = []
