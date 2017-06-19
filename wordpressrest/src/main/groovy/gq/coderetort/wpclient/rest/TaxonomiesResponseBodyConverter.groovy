@@ -1,5 +1,7 @@
 package gq.coderetort.wpclient.rest
 
+import gq.coderetort.wpclient.models.Link
+import gq.coderetort.wpclient.models.Links
 import gq.coderetort.wpclient.models.Taxonomy
 import groovy.json.JsonSlurper
 import okhttp3.ResponseBody
@@ -13,23 +15,31 @@ class TaxonomiesResponseBodyConverter<T> implements Converter<ResponseBody, T> {
 
     private static void setupStringToCamelCase() {
         String.metaClass.toCamelCase() {
-            println delegate
-            while (delegate.contains("_")) {
-                int underscoreIndex = delegate.indexOf("_")
-
-                if (delegate.size() - 1 > underscoreIndex) {
-                    char toUpperChar = delegate.charAt(underscoreIndex + 1)
-
-                    StringBuilder myKey = new StringBuilder(delegate);
-                    myKey.deleteCharAt(underscoreIndex)
-                    myKey.setCharAt(underscoreIndex, toUpperChar.toUpperCase())
-                    delegate = myKey.toString()
-                } else {
-                    delegate = delegate.replace("_", "")
-                }
+            def unwantedChars = ["_", "-"]
+            def string = delegate
+            unwantedChars.each { unwantedChar ->
+                string = removeUnwatedChars(string, unwantedChar)
             }
-            return delegate
+            return string
         }
+    }
+
+    private static String removeUnwatedChars(String string, String charToRemove) {
+        while (string.contains(charToRemove)) {
+            int underscoreIndex = string.indexOf(charToRemove)
+
+            if (underscoreIndex != 0 && string.size() - 1 > underscoreIndex) {
+                char toUpperChar = string.charAt(underscoreIndex + 1)
+
+                StringBuilder myKey = new StringBuilder(string)
+                myKey.deleteCharAt(underscoreIndex)
+                myKey.setCharAt(underscoreIndex, toUpperChar.toUpperCase())
+                string = myKey.toString()
+            } else {
+                string = string.replace(charToRemove, "")
+            }
+        }
+        return string
     }
 
     @Override
@@ -42,10 +52,12 @@ class TaxonomiesResponseBodyConverter<T> implements Converter<ResponseBody, T> {
                 Taxonomy taxonomy = new Taxonomy()
                 taxonomyJson.value.each { taxonomyField ->
                     String key = taxonomyField.key
+                    key = key.toCamelCase()
                     // todo finish object arrays
                     switch (key) {
-                        case ("_links"):
-//                            println taxonomyField.value.getClass()
+                        case ("links"):
+                            taxonomy.links = parseLinks(taxonomyField)
+                            taxonomies.add taxonomy
                             break
                         case ("capabilities"):
                             break
@@ -55,18 +67,43 @@ class TaxonomiesResponseBodyConverter<T> implements Converter<ResponseBody, T> {
                             break
                         case ("meta"):
                             break
-                        default :
-                            key = key.toCamelCase()
+                        default:
                             taxonomy."$key" = taxonomyField.value
                             break
                     }
                 }
                 taxonomies.add taxonomy
             }
-            println taxonomies
+            taxonomies.get(0)
             return taxonomies
         } finally {
             value.close()
         }
+    }
+
+    public Links parseLinks(taxonomyField) {
+        Links linksObject = new Links()
+        taxonomyField.value.each { links ->
+            def linkList = []
+
+            String key = links.key
+            key = key.replace("wp:", "")
+            key = key.toCamelCase()
+
+            links.value.each { linkField ->
+                Link linkObject = new Link()
+                linkField.each {
+                    String linkKey = it.key
+                    linkKey = linkKey.replace("wp:", "")
+                    linkKey = linkKey.toCamelCase()
+
+                    linkObject."$linkKey" = it.value
+                }
+                linkList.add linkObject
+            }
+
+            linksObject."$key" = linkList
+        }
+        return linksObject
     }
 }
