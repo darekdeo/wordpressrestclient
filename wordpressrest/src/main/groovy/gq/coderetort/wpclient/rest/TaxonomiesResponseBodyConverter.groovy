@@ -47,25 +47,28 @@ class TaxonomiesResponseBodyConverter<T> implements Converter<ResponseBody, T> {
         try {
             List<Taxonomy> taxonomies = new ArrayList<>()
             String jsonString = value.string()
+
             def list = new JsonSlurper().parseText(jsonString)
             list.each { taxonomyJson ->
                 Taxonomy taxonomy = new Taxonomy()
                 taxonomyJson.value.each { taxonomyField ->
                     String key = taxonomyField.key
                     key = key.toCamelCase()
-                    // todo finish object arrays
                     switch (key) {
                         case ("links"):
                             taxonomy.links = parseLinks(taxonomyField)
-                            taxonomies.add taxonomy
                             break
                         case ("capabilities"):
+                            // todo add capabilities parsing
                             break
                         case ("labels"):
+                            // todo add labels parsing
                             break
                         case ("types"):
+//                            taxonomy.types = parseTypes(taxonomyField)
                             break
                         case ("meta"):
+                            // todo add meta parsing
                             break
                         default:
                             taxonomy."$key" = taxonomyField.value
