@@ -15,13 +15,13 @@ class Media extends Creation {
      * The caption for the resource.
      * <p>Context: view, edit</p>
      */
-    String caption
+    Object caption
 
     /**
      * The description for the resource.
      * <p>Context: view, edit</p>
      */
-    String description
+    Object description
 
     /**
      * Type of resource.
@@ -43,7 +43,7 @@ class Media extends Creation {
      * <p>Read only</p>
      * <p>Context: view, edit, embed</p>
      */
-    @JsonProperty("media_details") Object mediaDetails
+    @JsonProperty("media_details") MediaDetails mediaDetails
 
     /**
      * The id for the associated post of the resource.

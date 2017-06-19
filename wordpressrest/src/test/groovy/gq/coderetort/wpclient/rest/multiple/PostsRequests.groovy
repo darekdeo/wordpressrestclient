@@ -1,10 +1,10 @@
 package gq.coderetort.wpclient.rest.multiple
 
 import gq.coderetort.wpclient.models.Post
-import gq.coderetort.wpclient.rest.base.BaseEntriesRequests
+import gq.coderetort.wpclient.rest.base.BaseCreationsRequests
 import gq.coderetort.wpclient.rest.queries.Query
 
-class PostsRequests extends BaseEntriesRequests {
+class PostsRequests extends BaseCreationsRequests {
 
     Closure get = { restClient.getPosts(it) }
     String searchString = "Welcome"

@@ -56,6 +56,13 @@ abstract class Creation extends BaseCreation {
     String pingStatus
 
     /**
+     * The theme file to use to display the object.
+     * <p>Context: view, edit</p>
+     * <p>One of:</p>
+     */
+    String template
+
+    /**
      * The date the object was last modified, in the site’s timezone. <p>Read only</p>
      * @return
      */

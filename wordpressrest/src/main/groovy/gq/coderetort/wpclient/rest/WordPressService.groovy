@@ -154,4 +154,28 @@ interface WordPressService {
     @GET("taxonomies/{taxonomy}")
     Observable<Taxonomy> getTaxonomyObservable(@Path("taxonomy") String taxonomy,
                                        @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("media")
+    Call<List<Media>> getMediaList(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("media")
+    Observable<List<Media>> getMediaListObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param mediaId Id of a media.
+     * @return
+     */
+    @GET("media/{id}")
+    Call<Media> getMedia(@Path("id") Integer mediaId,
+                               @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param mediaId Id of a media.
+     * @return
+     */
+    @GET("media/{id}")
+    Observable<Media> getMediaObservable(@Path("id") Integer mediaId,
+                         @QueryMap(encoded = true) Map<String, Object> params)
 }

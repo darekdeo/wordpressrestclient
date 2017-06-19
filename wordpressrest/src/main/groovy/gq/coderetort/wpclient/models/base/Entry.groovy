@@ -27,11 +27,4 @@ abstract class Entry extends Creation {
      * <p>Context: view, edit</p>
      */
     @JsonProperty("featured_media") Integer featuredMedia
-
-    /**
-     * The theme file to use to display the object.
-     * <p>Context: view, edit</p>
-     * <p>One of:</p>
-     */
-    String template
 }

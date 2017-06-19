@@ -76,6 +76,14 @@ class WordPressRestClient {
         executeSafeCall(query, { apiService.getTaxonomy(taxonomy, it) })?.body()
     }
 
+    List<Media> getMediaList(@Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getMediaList(it) })?.body()
+    }
+
+    Media getMedia(int id, @Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getMedia(id, it) })?.body()
+    }
+
     private static def executeSafeCall(@Nullable Query query, Closure closure) {
         try {
             def emptyMap = [:]

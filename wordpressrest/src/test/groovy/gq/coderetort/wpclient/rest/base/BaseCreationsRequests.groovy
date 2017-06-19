@@ -4,7 +4,7 @@ import gq.coderetort.wpclient.rest.queries.Query
 import gq.coderetort.wpclient.utils.DateUtils
 import spock.lang.Shared
 
-abstract class BaseEntriesRequests extends CommonListRequests {
+abstract class BaseCreationsRequests extends CommonListRequests {
 
     @Shared
     String dateAfter
