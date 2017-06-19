@@ -1,15 +1,10 @@
 package gq.coderetort.wpclient.models.base
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonProperty
 import gq.coderetort.wpclient.models.Object
-import gq.coderetort.wpclient.utils.DateUtils
+import gq.coderetort.wpclient.utils.DateUtils;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE
-
-@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, setterVisibility = NONE)
-abstract class EntryObject extends BaseEntryObject {
+abstract class Creation extends BaseCreation {
 
     /**
      * The globally unique identifier for the object.
@@ -45,37 +40,20 @@ abstract class EntryObject extends BaseEntryObject {
     Object title
 
     /**
-     * The excerpt for the object.
-     * <p>Context: view, edit, embed</p>
-     */
-    Object excerpt
-
-    /**
-     * The ID of the featured media for the object.
-     * <p>Context: view, edit</p>
-     */
-    @JsonProperty("featured_media") Integer featuredMedia
-
-    /**
      * Whether or not comments are open on the object.
      * <p>Context: view, edit</p>
      * <p>One of: open, closed</p>
      */
-    @JsonProperty("comment_status") String commentStatus
+    @JsonProperty("comment_status")
+    String commentStatus
 
     /**
      * Whether or not the object can be pinged.
      * <p>Context: view, edit</p>
      * <p>Context: open, closed</p>
      */
-    @JsonProperty("ping_status") String pingStatus
-
-    /**
-     * The theme file to use to display the object.
-     * <p>Context: view, edit</p>
-     * <p>One of:</p>
-     */
-    String template
+    @JsonProperty("ping_status")
+    String pingStatus
 
     /**
      * The date the object was last modified, in the site’s timezone. <p>Read only</p>

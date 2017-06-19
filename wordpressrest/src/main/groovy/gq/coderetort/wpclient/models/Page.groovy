@@ -1,9 +1,9 @@
 package gq.coderetort.wpclient.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.models.base.EntryObject
+import gq.coderetort.wpclient.models.base.Entry
 
-class Page extends EntryObject {
+class Page extends Entry {
 
     /**
      * The id for the parent of the object.

@@ -1,22 +1,15 @@
 package gq.coderetort.wpclient.models.base
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.models.Object
-import gq.coderetort.wpclient.utils.DateUtils
+import gq.coderetort.wpclient.utils.DateUtils;
 
-abstract class BaseEntryObject extends BaseObject {
+abstract class BaseCreation extends BaseObject {
 
     /**
      * The ID for the author of the object, if author was a user.
      * <p>Context: view, edit, embed</p>
      */
     Integer author
-
-    /**
-     * The content for the object.
-     * <p>Context: view, edit</p>
-     */
-    Object content
 
     /**
      * A named status for the object.

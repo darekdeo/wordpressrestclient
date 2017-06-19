@@ -1,9 +1,15 @@
 package gq.coderetort.wpclient.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.models.base.BaseEntryObject
+import gq.coderetort.wpclient.models.base.BaseCreation
 
-class Comment extends BaseEntryObject {
+class Comment extends BaseCreation {
+
+    /**
+     * The content for the object.
+     * <p>Context: view, edit</p>
+     */
+    Object content
 
     /**
      * Email address for the object author.

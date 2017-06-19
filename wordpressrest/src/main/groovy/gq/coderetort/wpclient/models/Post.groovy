@@ -1,9 +1,9 @@
 package gq.coderetort.wpclient.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.models.base.EntryObject
+import gq.coderetort.wpclient.models.base.Entry
 
-class Post extends EntryObject {
+class Post extends Entry {
 
     /**
      * A password to protect access to the content and excerpt.
