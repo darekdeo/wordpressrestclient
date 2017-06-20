@@ -58,6 +58,19 @@ class Query {
     List<Integer> tagsExclude
     Boolean sticky
 
+    /**
+     * Limit result set to attachments of a particular media type.
+     * <p>One of: image, video, audio, application</p>
+     * <p><b>Applicable for:</b> Media</p>
+     */
+    @JsonProperty("media_type") String mediaType
+
+    /**
+     * Limit result set to attachments of a particular MIME type.
+     * <p><b>Applicable for:</b> Media</p>
+     */
+    @JsonProperty("mime_type") String mimeType
+
     Map asMap() {
         this.class.declaredFields.findAll {
             !it.synthetic && this."$it.name" != null
