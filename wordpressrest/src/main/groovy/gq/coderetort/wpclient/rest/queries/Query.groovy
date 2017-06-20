@@ -245,6 +245,7 @@ class Query {
         return string
     }
 
+    @Deprecated
     List<Integer> getExcludeNegativeList(List<Integer> exclude) {
         if (!exclude?.isEmpty()) {
             def excludeNegativeList = []
@@ -256,6 +257,7 @@ class Query {
         }
     }
 
+    @Deprecated
     String getExcludeString(List<Integer> exclude) {
         if (!exclude?.isEmpty()) {
             String excluded
