@@ -16,7 +16,6 @@ class WordPressRestClient {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(httpClient ?: getDefaultOkHttpClient())
-//                .addConverterFactory(new WordPressConverterFactory())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
