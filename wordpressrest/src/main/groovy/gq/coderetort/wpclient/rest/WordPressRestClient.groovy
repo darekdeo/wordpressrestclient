@@ -99,6 +99,14 @@ class WordPressRestClient {
         executeSafeCall(query, { apiService.getPostType(postType, it) })?.body()
     }
 
+    Map<String, PostStatus> getPostStatuses(@Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getPostStatuses(it) })?.body()
+    }
+
+    PostStatus getPostStatus(String postStatus, @Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getPostStatus(postStatus, it) })?.body()
+    }
+
     private static def executeSafeCall(@Nullable Query query, Closure closure) {
         try {
             def emptyMap = [:]

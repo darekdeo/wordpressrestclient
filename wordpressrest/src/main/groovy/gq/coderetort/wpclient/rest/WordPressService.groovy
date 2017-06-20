@@ -226,4 +226,28 @@ interface WordPressService {
     @GET("types/{type}")
     Observable<PostType> getPostTypeObservable(@Path("type") String postType,
                                                @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("statuses")
+    Call<Map<String, PostStatus>> getPostStatuses(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("statuses")
+    Observable<Map<String, PostStatus>> getPostStatusesObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param postStatus a post status.
+     * @return
+     */
+    @GET("statuses/{status}")
+    Call<PostStatus> getPostStatus(@Path("status") String postStatus,
+                                   @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param postStatus a post status.
+     * @return
+     */
+    @GET("statuses/{status}")
+    Observable<PostStatus> getPostStatusObservable(@Path("status") String postStatus,
+                                                   @QueryMap(encoded = true) Map<String, Object> params)
 }
