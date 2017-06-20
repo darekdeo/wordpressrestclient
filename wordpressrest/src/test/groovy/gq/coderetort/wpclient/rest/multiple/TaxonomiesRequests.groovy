@@ -16,7 +16,7 @@ class TaxonomiesRequests extends CommonRequests {
             .build()
 
         when: "Taxonomies are downloaded from rest with given query"
-        List<Taxonomy> taxonomies = get(query)
+        Map<String, Taxonomy> taxonomies = get(query)
 
         then: "List of taxonomies should not be empty"
         taxonomies != null
@@ -24,8 +24,8 @@ class TaxonomiesRequests extends CommonRequests {
 
         and: "each taxonomy should be of requested type"
         taxonomies.each { taxonomy ->
-            assert taxonomy.types != null
-            assert taxonomy.types.contains(type)
+            assert taxonomy.value.types != null
+            assert taxonomy.value.types.contains(type)
         }
     }
 }

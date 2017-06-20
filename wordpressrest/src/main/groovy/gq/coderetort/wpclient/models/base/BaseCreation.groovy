@@ -1,7 +1,7 @@
 package gq.coderetort.wpclient.models.base
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.utils.DateUtils;
+import gq.coderetort.wpclient.utils.DateUtils
 
 abstract class BaseCreation extends BaseObject {
 

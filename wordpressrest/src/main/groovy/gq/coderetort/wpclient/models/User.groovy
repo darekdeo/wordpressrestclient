@@ -85,5 +85,5 @@ class User extends FeaturedObject {
      * <p>Read only</p>
      * <p>Context: view, edit, embed</p>
      */
-    @JsonProperty("avatar_urls") AvatarUrls avatarUrls
+    @JsonProperty("avatar_urls") Map<Integer, String> avatarUrls
 }

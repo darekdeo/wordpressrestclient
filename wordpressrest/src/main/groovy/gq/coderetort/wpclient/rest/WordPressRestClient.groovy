@@ -16,7 +16,7 @@ class WordPressRestClient {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(httpClient ?: getDefaultOkHttpClient())
-                .addConverterFactory(new WordPressConverterFactory())
+//                .addConverterFactory(new WordPressConverterFactory())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
@@ -68,7 +68,7 @@ class WordPressRestClient {
         executeSafeCall(query, { apiService.getPage(id, it) })?.body()
     }
 
-    List<Taxonomy> getTaxonomies(@Nullable Query query = null) {
+    Map<String, Taxonomy> getTaxonomies(@Nullable Query query = null) {
         executeSafeCall(query, { apiService.getTaxonomies(it) })?.body()
     }
 
@@ -90,6 +90,14 @@ class WordPressRestClient {
 
     User getUser(int id, @Nullable Query query = null) {
         executeSafeCall(query, { apiService.getUser(id, it) })?.body()
+    }
+
+    Map<String, PostType> getPostTypes(@Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getPostTypes(it) })?.body()
+    }
+
+    PostType getPostType(String postType, @Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getPostType(postType, it) })?.body()
     }
 
     private static def executeSafeCall(@Nullable Query query, Closure closure) {

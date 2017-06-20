@@ -132,11 +132,11 @@ interface WordPressService {
                                        @QueryMap(encoded = true) Map<String, Object> params)
 
     @GET("taxonomies")
-    Call<List<Taxonomy>> getTaxonomies(
+    Call<Map<String, Taxonomy>> getTaxonomies(
             @QueryMap(encoded = true) Map<String, Object> params)
 
     @GET("taxonomies")
-    Observable<List<Taxonomy>> getTaxonomiesObservable(
+    Observable<Map<String, Taxonomy>> getTaxonomiesObservable(
             @QueryMap(encoded = true) Map<String, Object> params)
 
     /**
@@ -202,4 +202,28 @@ interface WordPressService {
     @GET("users/{id}")
     Observable<User> getUserObservable(@Path("id") Integer userId,
                                        @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("types")
+    Call<Map<String, PostType>> getPostTypes(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("types")
+    Observable<Map<String, PostType>> getPostTypesObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param postType a post type.
+     * @return
+     */
+    @GET("types/{type}")
+    Call<PostType> getPostType(@Path("type") String postType,
+                               @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param postType a post type.
+     * @return
+     */
+    @GET("types/{type}")
+    Observable<PostType> getPostTypeObservable(@Path("type") String postType,
+                                               @QueryMap(encoded = true) Map<String, Object> params)
 }
