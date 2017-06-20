@@ -1,7 +1,7 @@
 package gq.coderetort.wpclient.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.models.base.FeaturedObject;
+import gq.coderetort.wpclient.models.base.FeaturedObject
 
 class User extends FeaturedObject {
 

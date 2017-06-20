@@ -3,7 +3,7 @@ package gq.coderetort.wpclient.rest.queries
 import com.fasterxml.jackson.annotation.JsonProperty
 import groovy.transform.builder.Builder
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Field
 
 @Builder
 class Query {

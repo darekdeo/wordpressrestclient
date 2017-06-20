@@ -1,6 +1,6 @@
 package gq.coderetort.wpclient.models
 
-import gq.coderetort.wpclient.models.base.Creation;
+import gq.coderetort.wpclient.models.base.Creation
 
 class PostRevisions extends Creation {
 

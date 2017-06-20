@@ -1,6 +1,6 @@
 package gq.coderetort.wpclient.models
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty
 
 class Settings {
 
