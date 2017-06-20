@@ -145,7 +145,7 @@ interface WordPressService {
      */
     @GET("taxonomies/{taxonomy}")
     Call<Taxonomy> getTaxonomy(@Path("taxonomy") String taxonomy,
-                                           @QueryMap(encoded = true) Map<String, Object> params)
+                               @QueryMap(encoded = true) Map<String, Object> params)
 
     /**
      * @param taxonomy a taxonomy.
@@ -153,7 +153,7 @@ interface WordPressService {
      */
     @GET("taxonomies/{taxonomy}")
     Observable<Taxonomy> getTaxonomyObservable(@Path("taxonomy") String taxonomy,
-                                       @QueryMap(encoded = true) Map<String, Object> params)
+                                               @QueryMap(encoded = true) Map<String, Object> params)
 
     @GET("media")
     Call<List<Media>> getMediaList(
@@ -169,7 +169,7 @@ interface WordPressService {
      */
     @GET("media/{id}")
     Call<Media> getMedia(@Path("id") Integer mediaId,
-                               @QueryMap(encoded = true) Map<String, Object> params)
+                         @QueryMap(encoded = true) Map<String, Object> params)
 
     /**
      * @param mediaId Id of a media.
@@ -177,5 +177,29 @@ interface WordPressService {
      */
     @GET("media/{id}")
     Observable<Media> getMediaObservable(@Path("id") Integer mediaId,
-                         @QueryMap(encoded = true) Map<String, Object> params)
+                                         @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("users")
+    Call<List<User>> getUsers(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    @GET("users")
+    Observable<List<User>> getUsersObservable(
+            @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param userId Id of a user.
+     * @return
+     */
+    @GET("users/{id}")
+    Call<User> getUser(@Path("id") Integer userId,
+                       @QueryMap(encoded = true) Map<String, Object> params)
+
+    /**
+     * @param userId Id of a user.
+     * @return
+     */
+    @GET("users/{id}")
+    Observable<User> getUserObservable(@Path("id") Integer userId,
+                                       @QueryMap(encoded = true) Map<String, Object> params)
 }

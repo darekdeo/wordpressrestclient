@@ -84,6 +84,14 @@ class WordPressRestClient {
         executeSafeCall(query, { apiService.getMedia(id, it) })?.body()
     }
 
+    List<User> getUsers(@Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getUsers(it) })?.body()
+    }
+
+    User getUser(int id, @Nullable Query query = null) {
+        executeSafeCall(query, { apiService.getUser(id, it) })?.body()
+    }
+
     private static def executeSafeCall(@Nullable Query query, Closure closure) {
         try {
             def emptyMap = [:]

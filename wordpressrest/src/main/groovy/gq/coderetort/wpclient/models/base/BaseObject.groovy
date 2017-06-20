@@ -13,7 +13,7 @@ abstract class BaseObject {
     Integer id
 
     /**
-     * URL of the term.
+     * URL of the object.
      * <p>Read only</p>
      * <p>Context: view, edit, embed</p>
      */

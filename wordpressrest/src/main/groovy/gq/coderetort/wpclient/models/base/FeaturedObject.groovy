@@ -1,21 +1,21 @@
 package gq.coderetort.wpclient.models.base
 
-abstract class BaseTerm extends BaseObject {
+abstract class FeaturedObject extends BaseObject {
 
     /**
-     * HTML description of the term.
-     * <p>Context: view, edit</p>
+     * Description of the resource.
+     * <p>Context: view, edit, embed</p>
      */
     String description
 
     /**
-     * HTML title for the term.
+     * Name for the resource.
      * <p>Context: view, edit, embed</p>
      */
     String name
 
     /**
-     * An alphanumeric identifier for the term unique to its type.
+     * An alphanumeric identifier for the resource.
      * <p>Context: view, edit, embed</p>
      */
     String slug

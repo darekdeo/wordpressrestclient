@@ -1,6 +1,6 @@
 package gq.coderetort.wpclient.models.base
 
-abstract class Term extends BaseTerm {
+abstract class Term extends FeaturedObject {
 
     /**
      * Number of published posts for the term.

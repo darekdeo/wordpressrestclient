@@ -211,6 +211,11 @@ class Query {
      */
     @JsonProperty("mime_type") String mimeType
 
+    /**
+     * Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
+     */
+    List<String> roles
+
     Map asMap() {
         this.class.declaredFields.findAll {
             !it.synthetic && this."$it.name" != null

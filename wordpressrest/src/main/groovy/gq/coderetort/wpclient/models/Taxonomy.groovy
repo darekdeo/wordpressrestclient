@@ -1,9 +1,9 @@
 package gq.coderetort.wpclient.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import gq.coderetort.wpclient.models.base.BaseTerm;
+import gq.coderetort.wpclient.models.base.FeaturedObject;
 
-class Taxonomy extends BaseTerm {
+class Taxonomy extends FeaturedObject {
 
     /**
      * Whether or not the taxonomy should have children.
