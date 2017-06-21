@@ -35,7 +35,7 @@ abstract class CommonRequests extends Specification {
         try {
             !models?.isEmpty()
         } catch (MissingMethodException e) {
-            // is not a list, check model id or taxonomy
+            e.println("is not a list, check model id or name")
             models.id == modelId
         }
     }
@@ -54,7 +54,7 @@ abstract class CommonRequests extends Specification {
         try {
             !models?.isEmpty()
         } catch (MissingMethodException e) {
-            // is not a list, check model id
+            e.println("is not a list, check model id")
             models.id == modelId
         }
     }

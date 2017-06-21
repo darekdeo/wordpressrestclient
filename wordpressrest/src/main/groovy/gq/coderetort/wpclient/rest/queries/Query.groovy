@@ -251,28 +251,28 @@ class Query {
     }
 
     @Deprecated
-    List<Integer> getExcludeNegativeList(List<Integer> exclude) {
+    static List<Integer> getExcludeNegativeList(List<Integer> exclude) {
+        def excludeNegativeList = []
         if (!exclude?.isEmpty()) {
-            def excludeNegativeList = []
             exclude.each { number ->
                 number > 0 ?: number * -1
                 excludeNegativeList.add(number)
             }
-            return excludeNegativeList
         }
+        return excludeNegativeList
     }
 
     @Deprecated
-    String getExcludeString(List<Integer> exclude) {
+    static String getExcludeString(List<Integer> exclude) {
+        String excluded = ""
         if (!exclude?.isEmpty()) {
-            String excluded
             exclude.each { excludeId ->
                 if (excluded == null)
                     excluded = "-" + excludeId
                 else
                     excluded = excluded.concat(", -" + excludeId)
             }
-            return excluded
         }
+        return excluded
     }
 }

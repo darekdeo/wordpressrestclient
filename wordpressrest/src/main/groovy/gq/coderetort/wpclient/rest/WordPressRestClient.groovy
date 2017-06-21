@@ -12,7 +12,7 @@ class WordPressRestClient {
 
     WordPressService apiService;
 
-    WordPressRestClient(OkHttpClient httpClient, String baseUrl) {
+    WordPressRestClient(@Nullable OkHttpClient httpClient, String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(httpClient ?: getDefaultOkHttpClient())
@@ -23,7 +23,7 @@ class WordPressRestClient {
         apiService = retrofit.create(WordPressService.class)
     }
 
-    private OkHttpClient getDefaultOkHttpClient() {
+    private static OkHttpClient getDefaultOkHttpClient() {
         new OkHttpClient.Builder().addNetworkInterceptor(new WordPressNetworkInterceptor()).build()
     }
 
