@@ -1,20 +1,64 @@
 apply plugin: 'com.android.library'
 apply plugin: 'groovyx.android'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+version = "0.1"
+group = "gq.coderetort.wpclient"
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "25.0.2"
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
-        versionName "0.1"
+        versionName version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+def siteUrl = 'https://github.com/darekdeo/wordpressrestclient'
+def gitUrl = 'https://github.com/darekdeo/wordpressrestclient.git'
+def libraryDescription = 'WordPress rest client library for Android.'
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                name 'WordPress rest client'
+                description libraryDescription
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'darekdeo'
+                        name 'Dariusz Deoniziak'
+                        email 'darekdeoniziak@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
         }
     }
 }
@@ -31,4 +75,63 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+}
+
+android.libraryVariants.all { variant ->
+    Task javadocTask = task("generate${variant.name.capitalize()}JavaDoc", type: Javadoc) {
+        group = 'artifact'
+        source = variant.javaCompile.source
+        String androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+        classpath = variant.javaCompiler.classpath + files(androidJar)
+
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+
+        if (JavaVersion.current().isJava8Compatible()) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+
+    Task javadocJarTask = task("generate${variant.name.capitalize()}JavadocJar", type: Jar, dependsOn: javadocTask) {
+        group = 'artifact'
+        classifier = 'javadoc'
+        from javadocTask.destinationDir
+    }
+
+    Task sourcesJarTask = task("generate${variant.name.capitalize()}SourcesJar", type: Jar) {
+        group = 'artifact'
+        classifier = "sources"
+        from variant.javaCompiler.source
+    }
+
+    artifacts {
+        archives javadocJarTask
+        archives sourcesJarTask
+    }
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    publish = true
+    pkg {
+        repo = "wordpressrestclient"
+        name = "wprestclient"
+        websiteUrl = siteUrl
+        issueTrackerUrl = "$siteUrl/issues"
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                // Optional. The passphrase for GPG signing'
+            }
+        }
+    }
 }
