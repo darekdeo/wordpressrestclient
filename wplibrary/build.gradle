@@ -63,7 +63,7 @@ install {
     }
 }
 
-def retrofitLibVersion = '2.2.0'
+def retrofitLibVersion = '2.3.0'
 def okhttpLibVersion = '3.6.0'
 
 dependencies {
