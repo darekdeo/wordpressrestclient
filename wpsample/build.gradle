@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mutualmobile.gradle.plugins.dexinfo'
 
 android {
     compileSdkVersion 26
@@ -25,4 +26,8 @@ android {
 dependencies {
     compile project(':wplibrary')
     compile 'com.android.support:appcompat-v7:26.+'
+}
+
+dexinfo {
+    maxDepth 2
 }
