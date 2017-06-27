@@ -21,15 +21,13 @@ class WordPressRestClient {
     }
 
     private OkHttpClient getDefaultOkHttpClient() {
-        new OkHttpClient.Builder().addNetworkInterceptor(new WordPressNetworkInterceptor()).build()
+        new OkHttpClient.Builder()
+                .addNetworkInterceptor(new WordPressNetworkInterceptor())
+                .build()
     }
 
     List<Post> getPosts(Query query) {
-//        executeSafeCall(query, { apiService.getPosts(it) })?.body()
-        Map<String, java.lang.Object> map = new HashMap<>()
-        if (query != null)
-            map = query.asMap()
-        return apiService.getPosts(map).execute().body()
+        executeSafeCall(query, { apiService.getPosts(it) })?.body()
     }
 
     Post getPost(int id, Query query = null) {

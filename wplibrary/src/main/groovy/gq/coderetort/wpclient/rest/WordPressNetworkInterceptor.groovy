@@ -13,7 +13,8 @@ class WordPressNetworkInterceptor implements Interceptor {
         string = string.replace("%26", "&")
         string = string.replace("%3D", "=")
 
-        Request newRequest = new Request.Builder()
+        Request newRequest = request
+                .newBuilder()
                 .url(string)
                 .build()
 
