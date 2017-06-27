@@ -1,1 +1,1 @@
-include ':wordpressrest'
+include ':wplibrary', ':wpsample'
