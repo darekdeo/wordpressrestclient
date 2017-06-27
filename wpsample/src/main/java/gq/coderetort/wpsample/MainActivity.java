@@ -8,6 +8,7 @@ import java.util.List;
 
 import gq.coderetort.wpclient.models.Post;
 import gq.coderetort.wpclient.rest.WordPressRestClient;
+import gq.coderetort.wpclient.rest.queries.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +28,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 WordPressRestClient client = new WordPressRestClient(null, "http://demo.wp-api.org/wp-json/wp/v2/");
-                List<Post> posts = client.getPosts(null);
+
+                Query query = new Query.QueryBuilder()
+                        .context("view")
+                        .build();
+                List<Post> posts = client.getPosts(query);
+
                 Log.d(TAG, "list of posts is: " + String.valueOf(posts));
+                for (Post post : posts) {
+                    Log.d(TAG, "post: " + String.valueOf(post.getId()));
+                }
             }
         }).start();
     }
