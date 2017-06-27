@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    compile project(':wplibrary')
+    compile project(':wpclient')
     compile 'com.android.support:appcompat-v7:26.+'
 }
 

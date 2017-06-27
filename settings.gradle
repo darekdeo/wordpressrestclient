@@ -1,1 +1,1 @@
-include ':wplibrary', ':wpsample'
+include ':wpclient', ':wpsample'
