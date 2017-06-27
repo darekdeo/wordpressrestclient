@@ -28,7 +28,9 @@ android {
 }
 
 dependencies {
-    compile project(':wpclient')
+    compile (project(':wpclient')) {
+        exclude group: 'org.codehaus.groovy', module: 'groovy-ant'
+    }
     compile 'com.android.support:appcompat-v7:26.+'
 }
 
