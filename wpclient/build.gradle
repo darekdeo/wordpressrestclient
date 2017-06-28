@@ -3,7 +3,7 @@ apply plugin: 'groovyx.android'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.1.7"
+version = "0.1.11"
 group = "gq.coderetort.wpclient"
 
 android {
@@ -83,11 +83,12 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpLibVersion"
 }
 
-def groovyDoc = true
+def isGroovy = true
 
 android.libraryVariants.all { variant ->
     Task docTask
-    if (groovyDoc) {
+    String fromSource = isGroovy ? "src/main/groovy" : variant.javaCompiler.source
+    if (isGroovy) {
         Task groovydocTask = task("generate${variant.name}Groovydoc", type: Groovydoc) {
             group = 'artifact'
             source = "src/main/groovy"
@@ -126,7 +127,7 @@ android.libraryVariants.all { variant ->
     Task sourcesJarTask = task("generate${variant.name.capitalize()}SourcesJar", type: Jar) {
         group = 'artifact'
         classifier = "sources"
-        from variant.javaCompiler.source
+        from fromSource
     }
 
     artifacts {
