@@ -3,7 +3,7 @@ apply plugin: 'groovyx.android'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.1.6"
+version = "0.1.7"
 group = "gq.coderetort.wpclient"
 
 android {
@@ -83,43 +83,44 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttpLibVersion"
 }
 
+def groovyDoc = true
+
 android.libraryVariants.all { variant ->
-    Task javadocTask = task("generate${variant.name.capitalize()}JavaDoc", type: Javadoc) {
-        group = 'artifact'
-        source = variant.javaCompile.source
-        String androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-        classpath = variant.javaCompiler.classpath + files(androidJar)
+    Task docTask
+    if (groovyDoc) {
+        Task groovydocTask = task("generate${variant.name}Groovydoc", type: Groovydoc) {
+            group = 'artifact'
+            source = "src/main/groovy"
+            classpath = configurations.compile
+            groovyClasspath = configurations.compile
 
-        exclude '**/BuildConfig.java'
-        exclude '**/R.java'
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
 
-        if (JavaVersion.current().isJava8Compatible()) {
-            options.addStringOption('Xdoclint:none', '-quiet')
+            destinationDir = file("$buildDir/groovydoc")
         }
+        docTask = groovydocTask
+    } else {
+        Task javadocTask = task("generate${variant.name.capitalize()}JavaDoc", type: Javadoc) {
+            group = 'artifact'
+            source = variant.javaCompile.source
+            String androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+            classpath = variant.javaCompiler.classpath + files(androidJar)
+
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+
+            if (JavaVersion.current().isJava8Compatible()) {
+                options.addStringOption('Xdoclint:none', '-quiet')
+            }
+        }
+        docTask = javadocTask
     }
 
-    Task groovydocTask = task("generate${variant.name}Groovydoc", type: Groovydoc) {
-        group = 'artifact'
-        source = "src/main/groovy"
-        classpath = configurations.compile
-        groovyClasspath = configurations.compile
-
-        exclude '**/BuildConfig.java'
-        exclude '**/R.java'
-
-        destinationDir = file("$buildDir/groovydoc")
-    }
-
-    Task javadocJarTask = task("generate${variant.name.capitalize()}JavadocJar", type: Jar, dependsOn: javadocTask) {
-        group = 'artifact'
-        classifier = 'javadoc'
-        from javadocTask.destinationDir
-    }
-
-    Task groovydocJarTask = task("generate${variant.name.capitalize()}GroovydocJar", type: Jar, dependsOn: groovydocTask) {
+    Task javadocJarTask = task("generate${variant.name.capitalize()}JavadocJar", type: Jar, dependsOn: docTask) {
         group = 'artifact'
         classifier = 'javadoc'
-        from groovydocTask.destinationDir
+        from docTask.destinationDir
     }
 
     Task sourcesJarTask = task("generate${variant.name.capitalize()}SourcesJar", type: Jar) {
@@ -129,7 +130,6 @@ android.libraryVariants.all { variant ->
     }
 
     artifacts {
-        archives groovydocJarTask
         archives javadocJarTask
         archives sourcesJarTask
     }
