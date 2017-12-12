@@ -1,35 +1,63 @@
-apply plugin: 'com.android.library'
-apply plugin: 'groovyx.android'
+apply plugin: 'groovy'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.1.11"
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+version = "0.2.0"
 group = "gq.coderetort.wpclient"
 
-android {
-    compileSdkVersion 26
-    buildToolsVersion "25.0.2"
-    defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 26
-        versionCode 1
-        versionName version
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+def retrofitLibVersion = '2.3.0'
+def okhttpLibVersion = '3.6.0'
+def groovyLibVersion = '2.4.10'
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4-rc-2'
+    testImplementation 'org.json:json:20170516'
+    testImplementation 'junit:junit:4.12'
+
+    compile "org.codehaus.groovy:groovy:$groovyLibVersion"
+    compile "org.codehaus.groovy:groovy-ant:$groovyLibVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofitLibVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitLibVersion"
+    compile "com.squareup.okhttp3:okhttp:$okhttpLibVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpLibVersion"
+}
+
+sourceSets {
+    groovydoc {
+        resources {
+            srcDir 'src/groovydoc'
         }
     }
-    lintOptions {
-        abortOnError false
-    }
+}
+
+groovydoc {
+    classpath = sourceSets.groovydoc.output + classpath
+    includes  = ["**/dsl/**"]
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
 }
 
 def siteUrl = 'https://github.com/darekdeo/wordpressrestclient'
 def gitUrl = 'https://github.com/darekdeo/wordpressrestclient.git'
-def libraryDescription = 'WordPress rest client library for Android.'
+def libraryDescription = 'WordPress rest client library.'
 
 install {
     repositories.mavenInstaller {
@@ -60,79 +88,6 @@ install {
                 }
             }
         }
-    }
-}
-
-def retrofitLibVersion = '2.3.0'
-def okhttpLibVersion = '3.6.0'
-def groovyLibVersion = '2.4.10'
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
-    testCompile 'org.json:json:20170516'
-
-    compile "org.codehaus.groovy:groovy:$groovyLibVersion:grooid"
-//    compile "org.codehaus.groovy:groovy-groovydoc:$groovyLibVersion" // not needed
-    compile "org.codehaus.groovy:groovy-ant:$groovyLibVersion"
-
-    compile "com.squareup.retrofit2:retrofit:$retrofitLibVersion"
-    compile "com.squareup.retrofit2:converter-gson:$retrofitLibVersion"
-
-    compile "com.squareup.okhttp3:okhttp:$okhttpLibVersion"
-    compile "com.squareup.okhttp3:logging-interceptor:$okhttpLibVersion"
-}
-
-def isGroovy = true
-
-android.libraryVariants.all { variant ->
-    Task docTask
-    String fromSource = isGroovy ? "src/main/groovy" : variant.javaCompiler.source
-    if (isGroovy) {
-        Task groovydocTask = task("generate${variant.name}Groovydoc", type: Groovydoc) {
-            group = 'artifact'
-            source = "src/main/groovy"
-            classpath = configurations.compile
-            groovyClasspath = configurations.compile
-
-            exclude '**/BuildConfig.java'
-            exclude '**/R.java'
-
-            destinationDir = file("$buildDir/groovydoc")
-        }
-        docTask = groovydocTask
-    } else {
-        Task javadocTask = task("generate${variant.name.capitalize()}JavaDoc", type: Javadoc) {
-            group = 'artifact'
-            source = variant.javaCompile.source
-            String androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-            classpath = variant.javaCompiler.classpath + files(androidJar)
-
-            exclude '**/BuildConfig.java'
-            exclude '**/R.java'
-
-            if (JavaVersion.current().isJava8Compatible()) {
-                options.addStringOption('Xdoclint:none', '-quiet')
-            }
-        }
-        docTask = javadocTask
-    }
-
-    Task javadocJarTask = task("generate${variant.name.capitalize()}JavadocJar", type: Jar, dependsOn: docTask) {
-        group = 'artifact'
-        classifier = 'javadoc'
-        from docTask.destinationDir
-    }
-
-    Task sourcesJarTask = task("generate${variant.name.capitalize()}SourcesJar", type: Jar) {
-        group = 'artifact'
-        classifier = "sources"
-        from fromSource
-    }
-
-    artifacts {
-        archives javadocJarTask
-        archives sourcesJarTask
     }
 }
 
