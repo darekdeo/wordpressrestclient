@@ -5,7 +5,7 @@ apply plugin: 'com.jfrog.bintray'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-version = "0.2.0"
+version = "0.2.3"
 group = "gq.coderetort.wpclient"
 
 def retrofitLibVersion = '2.3.0'
@@ -19,7 +19,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     compile "org.codehaus.groovy:groovy:$groovyLibVersion"
-    compile "org.codehaus.groovy:groovy-ant:$groovyLibVersion"
     compile "com.squareup.retrofit2:retrofit:$retrofitLibVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitLibVersion"
     compile "com.squareup.okhttp3:okhttp:$okhttpLibVersion"
@@ -41,16 +40,15 @@ groovydoc {
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
-    from 'build/docs/javadoc'
+    from javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
     classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 artifacts {
-    archives jar
     archives javadocJar
     archives sourcesJar
 }
@@ -61,10 +59,9 @@ def libraryDescription = 'WordPress rest client library.'
 
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
-                packaging 'aar'
+                packaging 'jar'
                 name 'WordPress rest client'
                 description libraryDescription
                 url siteUrl
@@ -109,9 +106,8 @@ bintray {
         version {
             desc = libraryDescription
             gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
+                sign = true
                 passphrase = properties.getProperty("bintray.gpg.password")
-                // Optional. The passphrase for GPG signing'
             }
         }
     }
