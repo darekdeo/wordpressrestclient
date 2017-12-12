@@ -10,6 +10,7 @@ import gq.coderetort.wpclient.models.Post;
 import gq.coderetort.wpclient.rest.WordPressRestClient;
 import gq.coderetort.wpclient.rest.queries.Query;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -27,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                WordPressRestClient client = new WordPressRestClient(null, "http://demo.wp-api.org/wp-json/wp/v2/");
+                WordPressRestClient client = new WordPressRestClient(
+                        null,
+                        "http://demo.wp-api.org/wp-json/wp/v2/"
+                );
 
                 Query query = new Query.QueryBuilder()
                         .context("view")
