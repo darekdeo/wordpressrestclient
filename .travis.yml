@@ -9,4 +9,4 @@ cache:
     - $HOME/.gradle/wrapper/
 
 install: ./gradlew -c "settings_library.gradle" assemble
-script: ./gradlew -c "settings_library.gradle" check --rerun-tasks
+script: ./gradlew -c "settings_library.gradle" check --rerun-tasks --info
