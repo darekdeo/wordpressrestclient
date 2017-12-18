@@ -88,26 +88,28 @@ install {
     }
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    publish = true
-    pkg {
-        repo = "wordpressrestclient"
-        name = "wprestclient"
-        websiteUrl = siteUrl
-        issueTrackerUrl = "$siteUrl/issues"
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publicDownloadNumbers = true
-        version {
-            desc = libraryDescription
-            gpg {
-                sign = true
-                passphrase = properties.getProperty("bintray.gpg.password")
+if (project.rootProject.hasProperty('local.properties')) {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    bintray {
+        user = properties.getProperty("bintray.user")
+        key = properties.getProperty("bintray.apikey")
+        configurations = ['archives']
+        publish = true
+        pkg {
+            repo = "wordpressrestclient"
+            name = "wprestclient"
+            websiteUrl = siteUrl
+            issueTrackerUrl = "$siteUrl/issues"
+            vcsUrl = gitUrl
+            licenses = ["Apache-2.0"]
+            publicDownloadNumbers = true
+            version {
+                desc = libraryDescription
+                gpg {
+                    sign = true
+                    passphrase = properties.getProperty("bintray.gpg.password")
+                }
             }
         }
     }
