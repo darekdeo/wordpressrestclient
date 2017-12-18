@@ -1,4 +1,4 @@
-# WordPress REST client
+# WordPress REST client [![Build Status](https://travis-ci.org/darekdeo/wordpressrestclient.svg?branch=master)](https://travis-ci.org/darekdeo/wordpressrestclient)
 WordPress REST client library simplifies using common WordPress API requests and parses results to POJO using Gson and Retrofit. It is available both for Java and Android.
 
 WordPress REST API reference: https://developer.wordpress.org/rest-api/reference/
