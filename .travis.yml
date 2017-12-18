@@ -8,5 +8,5 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-install: ./gradlew :wpclient:assemble
-script: ./gradlew :wpclient:check
+install: ./gradlew -c "settings_library.gradle" assemble
+script: ./gradlew -c "settings_library.gradle" check
