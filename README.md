@@ -22,26 +22,37 @@ Query query = new Query.QueryBuilder()
   .build();
 List<Post> posts = client.getPosts(query);
 
-// getting page with id 1
-Page page = client.getPage(1);
+if (posts != null) { // failed request returns null
+    // getting page with id 1
+    Page page = client.getPage(1);
+}
 ~~~
 
 Download
 ----
 The library is not yet published on jcenter, it is available in custom maven repository:
 ~~~
-repositories {
-    maven {
-        url  "http://dl.bintray.com/darekdeo/wordpressrestclient" 
+buildscript {
+    dependencies {
+        ...
+        classpath 'org.codehaus.groovy:groovy-android-gradle-plugin:2.0.0'
+    }
+
+    repositories {
+    ...
+        maven {
+            url  "http://dl.bintray.com/darekdeo/wordpressrestclient" 
+        }
     }
 }
 
 // for Groovy or Android Groovy project:
 dependencies {
     ...
-    compile ('gq.coderetort.wpclient:wpclient:0.2.3') {
+    implementation ('gq.coderetort.wpclient:wpclient:0.2.3') {
         exclude group: 'org.codehaus.groovy'
     }
+    implementation 'org.codehaus.groovy:groovy:2.4.12:grooid'
 }
 
 // for non Groovy project:
